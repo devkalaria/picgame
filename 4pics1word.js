@@ -57,7 +57,7 @@ function renderStartingScreen() {
   let givenLetters = document.getElementById("givenLetters");
   for (let i = 0; i < mainWord.length; i++) {
     wordArea.innerHTML =
-      wordArea.innerHTML + `<div class='buttons-div' id=""></div>`;
+      wordArea.innerHTML + `<div class='buttons-div' id="letterNo${i}"></div>`;
   }
   for (let i = 0; i < 12; i++) {
     givenLetters.innerHTML =
@@ -73,7 +73,40 @@ function renderLetters(arr) {
     x.setAttribute("type", "button");
     x.setAttribute("value", `${arr[i]}`);
     x.setAttribute("class", "letter-buttons");
+    x.setAttribute("id", `button${i}`);
+    x.setAttribute("onclick", `givenLetterToGuessWord(${i})`);
     id.appendChild(x);
   }
+}
+let checkingArr = [];
+for (let i = 0; i < mainWord.length; i++) {
+  checkingArr.push("");
+}
+function givenLetterToGuessWord(num) {
+  let char = document.getElementById(`button${num}`);
+  char.style.display = "none";
+  let i = 0;
+  while (checkingArr[i] !== "") {
+    i++;
+  }
+
+  let charShow = document.getElementById(`letterNo${i}`);
+  let x = document.createElement("INPUT");
+  x.setAttribute("type", "button");
+  x.setAttribute("value", `${arr[num]}`);
+  x.setAttribute("class", "letter-buttons");
+  x.setAttribute("id", `shiftedButton${num}`);
+  x.setAttribute("onclick", `removeGuessLetter(${num} , ${i})`);
+  charShow.appendChild(x);
+  checkingArr[i] = x.value;
+  console.log(checkingArr);
+}
+function removeGuessLetter(indexOfGivenLetters, index) {
+  let char = document.getElementById(`shiftedButton${indexOfGivenLetters}`);
+  char.remove();
+  document.getElementById(`button${indexOfGivenLetters}`).style.display =
+    "block";
+  checkingArr[index] = "";
+  console.log(checkingArr);
 }
 renderLetters(arr);
