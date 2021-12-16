@@ -15,9 +15,18 @@ body {
   width: 13vw;
   height: 13vw;
 }
+.guessing-picture:hover {
+  object-fit: cover;
+  position: absolute;
+  z-index: 1;
+  width: 26.3vw;
+  height: 54vh;
+}
 .pictures-div {
   border: 1px solid black;
+  width: 26.3vw;
   display: flex;
+  flex-wrap: wrap;
 }
 .keyboard-layout {
   margin: auto;
@@ -27,7 +36,7 @@ body {
   display: flex;
   flex-wrap: wrap;
 }
-.keyboard-buttons {
+.buttons-div {
   border-radius: 5px;
   background-color: silver;
   margin-right: 8px;
@@ -35,4 +44,8 @@ body {
   width: 20px;
   height: 20px;
   padding: 5px;
+}
+.letter-buttons {
+  display: block;
+  margin: 0 auto;
 }
