@@ -1,9 +1,10 @@
 body {
-  background-color: rgb(155, 212, 32);
+  background-image: url(./assets/background.jpg);
 }
 .heading {
   font-size: 50px;
   text-align: center;
+  color: white;
 }
 .game-container {
   margin: auto;
@@ -31,31 +32,39 @@ body {
 .keyboard-layout {
   margin: auto;
   margin-top: 3vh;
-  width: 14.25rem;
+  width: 18rem;
   display: flex;
   flex-wrap: wrap;
 }
 .buttons-div {
   border-radius: 5px;
-  background-color: silver;
+  background-color: rgb(70, 96, 167);
   margin-right: 8px;
   margin-bottom: 8px;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   padding: 5px;
+}
+.buttons-div:hover {
+  background-color: black;
 }
 .vanish-hint {
   display: inline;
   padding: 10px;
-  background-color: rgb(155, 212, 32);
+  background-color: rgb(70, 96, 167);
   margin: 5px;
   position: relative;
   bottom: 10px;
 }
 .vanish-hint:hover {
-  background-color: rgb(32, 58, 6);
+  background-color: rgb(85, 194, 113);
 }
 .letter-buttons {
+  background-color: rgb(85, 194, 113);
+  border-radius: 5px;
   display: block;
-  margin: 0 auto;
+  margin: auto;
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
 }
