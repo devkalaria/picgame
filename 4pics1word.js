@@ -1,5 +1,5 @@
 let arr = [];
-let mainWord = "APPLE";
+let mainWord = "DRINK";
 function gameButtonAlphabets(str) {
   for (let i = 0; i < str.length; i++) {
     arr.push(str[i]);
@@ -24,21 +24,13 @@ function mixing(arr) {
   return mixedDeck;
 }
 arr = mixing(gameButtonAlphabets(mainWord));
-console.log("arr: ", arr);
-
 function wordChecker(orignalStr, inuptStr) {
-  //let inputStr;
-  //let orignalStr;
   if (inuptStr.toUpperCase() === orignalStr.toUpperCase()) {
-    //console.log("True");
     return true;
   } else {
-    //console.log("Flase");
     return false;
   }
 }
-//console.log(wordChecker("APPLE", "ApPL"));
-
 function hintlettersVanish(arr) {
   for (let i = 0; i < 3; i++) {
     let index = Math.floor(Math.random() * (arr.length - 1 - 0 + 1) + 0);
@@ -57,25 +49,31 @@ function hintlettersVanish(arr) {
 function hintCharacterTeller(str) {
   let index = Math.floor(Math.random() * (str.length - 1 - 0 + 1) + 0);
   let char = str[index];
-  // console.log(char);
   return char;
 }
-console.log(hintCharacterTeller(mainWord));
-// console.log(
-//hintWordVanish(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"])
-// );
-//console.log("after", hintWordVanish(arr));
 
-function renderScreen() {
+function renderStartingScreen() {
   let wordArea = document.getElementById("guessWord");
   let givenLetters = document.getElementById("givenLetters");
   for (let i = 0; i < mainWord.length; i++) {
     wordArea.innerHTML =
-      wordArea.innerHTML + "<div class='keyboard-buttons'></div>";
+      wordArea.innerHTML + `<div class='buttons-div' id=""></div>`;
   }
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < 12; i++) {
     givenLetters.innerHTML =
-      givenLetters.innerHTML + "<div class='keyboard-buttons'></div>";
+      givenLetters.innerHTML +
+      `<div class='buttons-div' id='button-div${i}'></div>`;
   }
 }
-renderScreen();
+renderStartingScreen();
+function renderLetters(arr) {
+  for (let i = 0; i < 12; i++) {
+    let id = document.getElementById(`button-div${i}`);
+    let x = document.createElement("INPUT");
+    x.setAttribute("type", "button");
+    x.setAttribute("value", `${arr[i]}`);
+    x.setAttribute("class", "letter-buttons");
+    id.appendChild(x);
+  }
+}
+renderLetters(arr);
