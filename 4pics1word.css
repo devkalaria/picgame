@@ -1,0 +1,38 @@
+body {
+  background-color: rgb(155, 212, 32);
+}
+.heading {
+  font-size: 50px;
+  text-align: center;
+}
+.game-container {
+  margin: auto;
+  width: fit-content;
+  border: 1px solid black;
+}
+.guessing-picture {
+  border: 1px black solid;
+  width: 13vw;
+  height: 13vw;
+}
+.pictures-div {
+  border: 1px solid black;
+  display: flex;
+}
+.keyboard-layout {
+  margin: auto;
+  margin-top: 3vh;
+  /* border: 1px solid black; */
+  width: 14.25rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.keyboard-buttons {
+  border-radius: 5px;
+  background-color: silver;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+}
