@@ -36,3 +36,14 @@ body {
   height: 20px;
   padding: 5px;
 }
+.vanish-hint {
+  display: inline;
+  padding: 10px;
+  background-color: rgb(155, 212, 32);
+  margin: 5px;
+  position: relative;
+  bottom: 10px;
+}
+.vanish-hint:hover {
+  background-color: rgb(32, 58, 6);
+}

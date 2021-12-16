@@ -32,6 +32,24 @@
           style="display: flex; width: fit-content; margin: auto; padding: 10px"
         ></div>
         <div id="givenLetters" class="keyboard-layout"></div>
+        <div class="button-container">
+          <button
+            oncliclk="hintlettersVanish()"
+            type="button"
+            id="vanish-hint"
+            class="vanish-hint"
+          >
+            HINT 1
+          </button>
+          <button
+            onclick="hintCharacterTeller()"
+            type="button"
+            id="char-teller"
+            class="vanish-hint"
+          >
+            HINT 2
+          </button>
+        </div>
       </div>
     </div>
   </body>
