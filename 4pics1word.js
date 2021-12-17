@@ -100,6 +100,9 @@ function givenLetterToGuessWord(num) {
   charShow.appendChild(x);
   checkingArr[i] = x.value;
   console.log(checkingArr);
+  if (wordChecker(checkingArr.join(""), mainWord) === true) {
+    document.getElementById("nextRound").style.display = "block";
+  }
 }
 function removeGuessLetter(indexOfGivenLetters, index) {
   let char = document.getElementById(`shiftedButton${indexOfGivenLetters}`);
@@ -109,4 +112,5 @@ function removeGuessLetter(indexOfGivenLetters, index) {
   checkingArr[index] = "";
   console.log(checkingArr);
 }
+// console.log(wordChecker(checkingArr.join(""), mainWord));
 renderLetters(arr);
