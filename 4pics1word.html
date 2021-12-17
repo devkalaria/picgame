@@ -8,43 +8,41 @@
     <title>4-PIC-1-WORD</title>
   </head>
   <body>
-    <div class="heading">
-      4 PICS 1 WORD
-      <div class="game-container">
-        <div class="pictures-div">
-            <img src="assets/pic1.jpg" class="guessing-picture" />
-            <img src="./assets/pic2.jpg" class="guessing-picture"/>
-            <img src="./assets/pic3.jpg" class="guessing-picture"/>
-            <img src="./assets/pic4.jpg"class="guessing-picture"/>
-          </div>
-        </div>
-        <div
-          id="guessWord"
-          style="display: flex; width: fit-content; margin: auto; padding: 10px"
-        ></div>
-        <div id="givenLetters" class="keyboard-layout">
-        </div>
-        <div class="button-container">
-          <button
-            oncliclk="hintlettersVanish()"
-            type="button"
-            id="vanish-hint"
-            class="vanish-hint"
-          >
-            HINT 1
-          </button>
-          <button
-            onclick="hintCharacterTeller()"
-            type="button"
-            id="char-teller"
-            class="vanish-hint"
-          >
-            HINT 2
-          </button>
-        </div>
-        <div>
-          <button id="nextRound" class="vanish-hint" style="display: none;">next round</button>
-        </div>
+    <div class="heading">4 PICS 1 WORD</div>
+    <div class="game-container">
+      <div class="pictures-div">
+        <img src="assets/pic1.jpg" class="guessing-picture" />
+        <img src="./assets/pic2.jpg" class="guessing-picture" />
+        <img src="./assets/pic3.jpg" class="guessing-picture" />
+        <img src="./assets/pic4.jpg" class="guessing-picture" />
+      </div>
+      <div
+        id="guessWord"
+        style="display: flex; width: fit-content; margin: auto; padding: 10px"
+      ></div>
+      <div id="givenLetters" class="keyboard-layout"></div>
+      <div class="button-container">
+        <button
+          oncliclk="hintlettersVanish()"
+          type="button"
+          id="vanish-hint"
+          class="vanish-hint"
+        >
+          HINT 1
+        </button>
+        <button
+          onclick="hintCharacterTeller()"
+          type="button"
+          id="char-teller"
+          class="vanish-hint"
+        >
+          HINT 2
+        </button>
+      </div>
+      <div>
+        <button id="nextRound" class="vanish-hint" style="display: none">
+          next round
+        </button>
       </div>
     </div>
   </body>
