@@ -1,6 +1,7 @@
 // GLOBAL VARIABLES
 let guessedWordArray = [];
 let givenLettersArray = [];
+let renderLettersArray = [];
 let mainWord = "DRINK";
 
 // FUNCTIONS OF THE GAME
@@ -35,17 +36,15 @@ function wordChecker(orignalStr, inuptStr) {
   }
 }
 function hintlettersVanish(arr) {
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 2; i++) {
     let index = Math.floor(Math.random() * (arr.length - 1 - 0 + 1) + 0);
     let char = arr[index];
-    console.log(arr);
     while (mainWord.includes(char, 0) === true) {
       index = Math.floor(Math.random() * (arr.length - 1 - 0 + 1) + 0);
       char = arr[index];
     }
     console.log(char);
-    arr.splice(index, 1);
-    console.log(index);
+    arr[index] = "";
   }
   return arr;
 }
@@ -85,15 +84,16 @@ function renderLetters(arr) {
 function givenLetterToGuessWord(num) {
   let char = document.getElementById(`button${num}`);
   char.style.display = "none";
+  givenLettersArray[num] = "";
+  console.log(givenLettersArray);
   let i = 0;
   while (guessedWordArray[i] !== "") {
     i++;
   }
-
   let charShow = document.getElementById(`letterNo${i}`);
   let x = document.createElement("INPUT");
   x.setAttribute("type", "button");
-  x.setAttribute("value", `${givenLettersArray[num]}`);
+  x.setAttribute("value", `${renderLettersArray[num]}`);
   x.setAttribute("class", "letter-buttons");
   x.setAttribute("id", `shiftedButton${num}`);
   x.setAttribute("onclick", `removeGuessLetter(${num} , ${i})`);
@@ -112,7 +112,17 @@ function removeGuessLetter(indexOfGivenLetters, index) {
   guessedWordArray[index] = "";
   console.log(guessedWordArray);
 }
+function hintlettersVanishButtonClicked() {
+  let arr = hintlettersVanish(givenLettersArray);
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === "") {
+      document.getElementById(`button${i}`).style.display = "none";
+    }
+  }
+  console.log(givenLettersArray);
+}
 
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));
+renderLettersArray = [...givenLettersArray];
 renderStartingScreen();
-renderLetters(givenLettersArray);
+renderLetters(renderLettersArray);
