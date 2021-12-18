@@ -3,7 +3,7 @@ let guessedWordArray = [];
 let givenLettersArray = [];
 let renderLettersArray = [];
 let mainWord;
-mainWord = randomWordPicker();
+mainWord = randomWordPicker().toUpperCase();
 
 //mainWordpicker
 function randomWordPicker() {
@@ -134,6 +134,7 @@ function givenLetterToGuessWord(num) {
   console.log(guessedWordArray);
   if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
     document.getElementById("nextRound").style.display = "block";
+    afterWinningLevel();
   }
 }
 function removeGuessLetter(indexOfGivenLetters, index) {
@@ -174,6 +175,15 @@ function hintCharacterTellerButtonClicked() {
     x.setAttribute("class", "letter-buttons");
 
     charShow.appendChild(x);
+    if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
+      document.getElementById("nextRound").style.display = "block";
+      afterWinningLevel();
+    }
+  }
+  if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
+    document.getElementById("nextRound").style.display = "block";
+    mainWord = randomWordPicker().toUpperCase();
+    console.log(mainWord);
   }
   console.log(guessedWordArray);
 }
