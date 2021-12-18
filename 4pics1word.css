@@ -12,22 +12,39 @@ body {
   border: 1px solid black;
 }
 .guessing-picture {
-  border: 1px black solid;
-  width: 13vw;
-  height: 13vw;
+  width: 50%;
+  height: auto;
 }
-.guessing-picture:hover {
+/* .guessing-picture:hover {
   object-fit: cover;
   position: absolute;
   z-index: 1;
   width: 26.3vw;
   height: 54vh;
-}
+} */
 .pictures-div {
-  border: 1px solid black;
-  width: 26.3vw;
+  position: relative;
+  width: 25rem;
   display: flex;
   flex-wrap: wrap;
+}
+/* #picture-modal {
+  display: none;
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+} */
+#clickedPictureDiv {
+  position: absolute;
+  display: none;
+  z-index: 1000;
+  margin: auto;
+  width: 25rem;
+  top: 10.8%;
 }
 .keyboard-layout {
   margin: auto;

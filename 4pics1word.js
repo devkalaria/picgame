@@ -121,6 +121,14 @@ function hintlettersVanishButtonClicked() {
   }
   console.log(givenLettersArray);
 }
+function guessingPictureClicked(pictureSrc) {
+  document.getElementById("clickedPictureDiv").style.display = "block";
+  document.getElementById("pictureToZoom").src = pictureSrc;
+  console.log(pictureSrc);
+}
+function closeZoomPicture() {
+  document.getElementById("clickedPictureDiv").style.display = "none";
+}
 
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));
 renderLettersArray = [...givenLettersArray];
