@@ -2,8 +2,21 @@
 let guessedWordArray = [];
 let givenLettersArray = [];
 let renderLettersArray = [];
-let mainWord = "DRINK";
+let mainWord;
+mainWord = randomWordPicker();
 
+//mainWordpicker
+function randomWordPicker() {
+  let index = Math.floor(Math.random() * (easyWords.length - 1 - 0 + 1) + 0);
+  return easyWords[index];
+}
+function imgSourceGenerator() {
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById(
+      `guessingPicture${i}`
+    ).src = `./assets/easy words images/${mainWord}/${mainWord}${i}.jpg`;
+  }
+}
 // FUNCTIONS OF THE GAME
 function gameButtonAlphabets(str) {
   for (let i = 0; i < str.length; i++) {
@@ -86,6 +99,7 @@ function renderStartingScreen() {
   for (let i = 0; i < mainWord.length; i++) {
     guessedWordArray.push("");
   }
+  imgSourceGenerator();
 }
 function renderLetters(arr) {
   for (let i = 0; i < 12; i++) {
