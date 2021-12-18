@@ -3,12 +3,13 @@ let guessedWordArray = [];
 let givenLettersArray = [];
 let renderLettersArray = [];
 let mainWord;
-mainWord = randomWordPicker();
+randomWordPicker();
 
 //mainWordpicker
 function randomWordPicker() {
   let index = Math.floor(Math.random() * (easyWords.length - 1 - 0 + 1) + 0);
-  return easyWords[index];
+  mainWord = easyWords[index].toUpperCase();
+  easyWords.splice(index, 1);
 }
 function imgSourceGenerator() {
   for (let i = 1; i <= 4; i++) {
@@ -117,7 +118,6 @@ function givenLetterToGuessWord(num) {
   let char = document.getElementById(`button${num}`);
   char.style.display = "none";
   givenLettersArray[num] = "";
-  console.log(givenLettersArray);
   let i = 0;
   while (guessedWordArray[i] !== "") {
     i++;
@@ -131,9 +131,8 @@ function givenLetterToGuessWord(num) {
   x.setAttribute("onclick", `removeGuessLetter(${num} , ${i})`);
   charShow.appendChild(x);
   guessedWordArray[i] = x.value;
-  console.log(guessedWordArray);
   if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
-    document.getElementById("nextRound").style.display = "block";
+    afterWinningLevel();
   }
 }
 function removeGuessLetter(indexOfGivenLetters, index) {
@@ -175,9 +174,32 @@ function hintCharacterTellerButtonClicked() {
 
     charShow.appendChild(x);
   }
+  if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
+    afterWinningLevel();
+  }
   console.log(guessedWordArray);
 }
-
+function removeRenderingAfterLevelChanges() {
+  for (let i = 0; i < mainWord.length; i++) {
+    document.getElementById(`letterNo${i}`).remove();
+  }
+  for (let i = 0; i < 12; i++) {
+    document.getElementById(`button-div${i}`).remove();
+  }
+}
+function afterWinningLevel() {
+  removeRenderingAfterLevelChanges();
+  givenLettersArray = [];
+  guessedWordArray = [];
+  randomWordPicker();
+  console.log("mainWord: ", mainWord);
+  givenLettersArray = mixing(gameButtonAlphabets(mainWord));
+  console.log("givenLettersArray: ", givenLettersArray);
+  renderLettersArray = [...givenLettersArray];
+  console.log("renderLettersArray: ", renderLettersArray);
+  renderStartingScreen();
+  renderLetters(renderLettersArray);
+}
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));
 renderLettersArray = [...givenLettersArray];
 renderStartingScreen();
