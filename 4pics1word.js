@@ -3,11 +3,7 @@ let guessedWordArray = [];
 let givenLettersArray = [];
 let renderLettersArray = [];
 let mainWord;
-<<<<<<< HEAD
-mainWord = randomWordPicker().toUpperCase();
-=======
 randomWordPicker();
->>>>>>> 43ee89b2c193a7d9dc93d23ee1953b0ee719b44e
 
 //mainWordpicker
 function randomWordPicker() {
@@ -136,10 +132,6 @@ function givenLetterToGuessWord(num) {
   charShow.appendChild(x);
   guessedWordArray[i] = x.value;
   if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
-<<<<<<< HEAD
-    document.getElementById("nextRound").style.display = "block";
-=======
->>>>>>> 43ee89b2c193a7d9dc93d23ee1953b0ee719b44e
     afterWinningLevel();
   }
 }
@@ -181,15 +173,6 @@ function hintCharacterTellerButtonClicked() {
     x.setAttribute("class", "letter-buttons");
 
     charShow.appendChild(x);
-    if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
-      document.getElementById("nextRound").style.display = "block";
-      afterWinningLevel();
-    }
-  }
-  if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
-    document.getElementById("nextRound").style.display = "block";
-    mainWord = randomWordPicker().toUpperCase();
-    console.log(mainWord);
   }
   if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
     afterWinningLevel();
