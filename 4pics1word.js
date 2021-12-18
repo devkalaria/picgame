@@ -49,9 +49,13 @@ function hintlettersVanish(arr) {
   return arr;
 }
 function hintCharacterTeller(str) {
+  while(guessedWordArray[index])
   let index = Math.floor(Math.random() * (str.length - 1 - 0 + 1) + 0);
   let char = str[index];
-  return char;
+  let arr = [];
+  arr.push(char);
+  arr.push(index);
+  return arr;
 }
 function renderStartingScreen() {
   let wordArea = document.getElementById("guessWord");
@@ -128,6 +132,20 @@ function guessingPictureClicked(pictureSrc) {
 }
 function closeZoomPicture() {
   document.getElementById("clickedPictureDiv").style.display = "none";
+function hintCharacterTellerButtonClicked() {
+  let newArr = hintCharacterTeller(mainWord);
+  let char = newArr[0];
+  let index = newArr[1];
+  guessedWordArray[index] = char;
+  let charShow = document.getElementById(`letterNo${index}`);
+  let x = document.createElement("INPUT");
+  x.setAttribute("type", "button");
+  x.setAttribute("value", `${char}`);
+  x.setAttribute("class", "letter-buttons");
+
+  charShow.appendChild(x);
+
+  console.log(guessedWordArray);
 }
 
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));

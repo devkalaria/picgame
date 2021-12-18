@@ -75,6 +75,7 @@ body {
 }
 .vanish-hint:hover {
   background-color: rgb(85, 194, 113);
+  cursor: pointer;
 }
 .letter-buttons {
   background-color: rgb(85, 194, 113);
@@ -84,4 +85,8 @@ body {
   width: 30px;
   height: 30px;
   border: 1px solid black;
+}
+.letter-buttons:hover {
+  border: 3px solid black;
+  cursor: pointer;
 }
