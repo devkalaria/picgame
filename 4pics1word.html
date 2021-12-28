@@ -8,62 +8,78 @@
     <title>4-PIC-1-WORD</title>
   </head>
   <body>
-    <div class="heading">4 PICS 1 WORD</div>
     <div class="game-container">
-      <div class="pictures-div">
-        <img
-          src=""
-          class="guessing-picture"
-          id="guessingPicture1"
-          onclick="guessingPictureClicked(src)"
-        />
-        <img
-          src=""
-          class="guessing-picture"
-          id="guessingPicture2"
-          onclick="guessingPictureClicked(src)"
-        />
-        <img
-          src=""
-          class="guessing-picture"
-          id="guessingPicture3"
-          onclick="guessingPictureClicked(src)"
-        />
-        <img
-          src=""
-          class="guessing-picture"
-          id="guessingPicture4"
-          onclick="guessingPictureClicked(src)"
-        />
+      <div class="left-game-container">
+        <img src="./assets/logo4.PNG" class="logoIcon" />
+        <div class="hints-container">
+          <input
+            type="image"
+            onclick="hintlettersVanishButtonClicked()"
+            id="vanish-hint"
+            class="hint-button"
+            src="./assets/hint_remove_letters.png"
+          />
+          <input
+            type="image"
+            onclick="hintCharacterTellerButtonClicked()"
+            id="char-teller"
+            class="hint-button"
+            src="./assets/hint_add_a_letter.png"
+          />
+        </div>
       </div>
-
-      <div id="clickedPictureDiv" onclick="closeZoomPicture()">
-        <img id="pictureToZoom" src="" style="width: 100%; height: auto" />
-      </div>
-
-      <div
-        id="guessWord"
-        style="display: flex; width: fit-content; margin: auto; padding: 10px"
-      ></div>
-      <div id="givenLetters" class="keyboard-layout"></div>
-      <div class="button-container">
-        <button
-          onclick="hintlettersVanishButtonClicked()"
-          type="button"
-          id="vanish-hint"
-          class="vanish-hint"
-        >
-          HINT 1
-        </button>
-        <button
-          onclick="hintCharacterTellerButtonClicked()"
-          type="button"
-          id="char-teller"
-          class="vanish-hint"
-          style="float: right"
-        >
-          HINT 2
-        </button>
+      <div class="curtain">
+        <div class="curtain__wrapper">
+          <div class="curtain__panel" id="curtainPanelLeft"></div>
+          <div class="right-game-container">
+            <div class="pictures-div">
+              <img src="" id="clickedPicture" onclick="closeZoomPicture()" />
+              <div class="guessing-picture-container">
+                <img
+                  src=""
+                  class="guessing-picture"
+                  id="guessingPicture1"
+                  onclick="guessingPictureClicked(src)"
+                />
+              </div>
+              <div class="guessing-picture-container">
+                <img
+                  src=""
+                  class="guessing-picture"
+                  id="guessingPicture2"
+                  onclick="guessingPictureClicked(src)"
+                />
+              </div>
+              <div class="guessing-picture-container">
+                <img
+                  src=""
+                  class="guessing-picture"
+                  id="guessingPicture3"
+                  onclick="guessingPictureClicked(src)"
+                />
+              </div>
+              <div class="guessing-picture-container">
+                <img
+                  src=""
+                  class="guessing-picture"
+                  id="guessingPicture4"
+                  onclick="guessingPictureClicked(src)"
+                />
+              </div>
+            </div>
+            <div
+              id="guessWord"
+              style="
+                display: flex;
+                width: fit-content;
+                margin: auto;
+                padding: 10px;
+              "
+            ></div>
+            <div id="givenLetters" class="keyboard-layout"></div>
+          </div>
+          <div class="curtain__panel" id="curtainPanelRight"></div>
+        </div>
       </div>
     </div>
   </body>

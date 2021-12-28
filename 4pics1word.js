@@ -3,6 +3,7 @@ let guessedWordArray = [];
 let givenLettersArray = [];
 let renderLettersArray = [];
 let mainWord;
+
 randomWordPicker();
 
 //mainWordpicker
@@ -132,7 +133,8 @@ function givenLetterToGuessWord(num) {
   charShow.appendChild(x);
   guessedWordArray[i] = x.value;
   if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
-    afterWinningLevel();
+    setTimeout(afterWinningLevel, 1300);
+    setTimeout(curtainEffect, 1000);
   }
 }
 function removeGuessLetter(indexOfGivenLetters, index) {
@@ -153,12 +155,12 @@ function hintlettersVanishButtonClicked() {
   console.log(givenLettersArray);
 }
 function guessingPictureClicked(pictureSrc) {
-  document.getElementById("clickedPictureDiv").style.display = "block";
-  document.getElementById("pictureToZoom").src = pictureSrc;
+  document.getElementById("clickedPicture").style.display = "block";
+  document.getElementById("clickedPicture").src = pictureSrc;
   console.log(pictureSrc);
 }
 function closeZoomPicture() {
-  document.getElementById("clickedPictureDiv").style.display = "none";
+  document.getElementById("clickedPicture").style.display = "none";
 }
 function hintCharacterTellerButtonClicked() {
   let newArr = hintCharacterTeller();
@@ -171,11 +173,12 @@ function hintCharacterTellerButtonClicked() {
     x.setAttribute("type", "button");
     x.setAttribute("value", `${char}`);
     x.setAttribute("class", "letter-buttons");
-
     charShow.appendChild(x);
+    document.getElementById(`button${index}`).style.display = "none";
   }
   if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
-    afterWinningLevel();
+    setTimeout(afterWinningLevel, 1400);
+    setTimeout(curtainEffect, 1000);
   }
   console.log(guessedWordArray);
 }
@@ -199,6 +202,20 @@ function afterWinningLevel() {
   console.log("renderLettersArray: ", renderLettersArray);
   renderStartingScreen();
   renderLetters(renderLettersArray);
+}
+function curtainEffect() {
+  console.log("haz");
+  document.getElementById("curtainPanelLeft").style.transform = "translateX(0)";
+  document.getElementById("curtainPanelRight").style.transform =
+    "translateX(0)";
+  setTimeout(() => {
+    document.getElementById("curtainPanelLeft").style.transform =
+      "translateX(-100%)";
+  }, 1000);
+  setTimeout(() => {
+    document.getElementById("curtainPanelRight").style.transform =
+      "translateX(100%)";
+  }, 1000);
 }
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));
 renderLettersArray = [...givenLettersArray];
