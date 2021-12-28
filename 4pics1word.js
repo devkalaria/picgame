@@ -3,7 +3,10 @@ let guessedWordArray = [];
 let givenLettersArray = [];
 let renderLettersArray = [];
 let mainWord;
-
+let counter = 4;
+let hintVanishflag = true;
+let flagL = true;
+let hintChar = true;
 randomWordPicker();
 
 //mainWordpicker
@@ -145,9 +148,6 @@ function removeGuessLetter(indexOfGivenLetters, index) {
   guessedWordArray[index] = "";
   console.log(guessedWordArray);
 }
-let counter = 4;
-let hintVanishflag = true;
-let flagL = true;
 function hintlettersVanishButtonClicked() {
   if (counter === 0) {
     counter = 4;
@@ -164,7 +164,6 @@ function hintlettersVanishButtonClicked() {
   }
   console.log(givenLettersArray);
 }
-
 function guessingPictureClicked(pictureSrc) {
   document.getElementById("clickedPicture").style.display = "block";
   document.getElementById("clickedPicture").src = pictureSrc;
@@ -173,7 +172,6 @@ function guessingPictureClicked(pictureSrc) {
 function closeZoomPicture() {
   document.getElementById("clickedPicture").style.display = "none";
 }
-let hintChar = true;
 function hintCharacterTellerButtonClicked() {
   let newArr = hintCharacterTeller();
   if (newArr !== "hintCannotBeUsed" && hintChar === true) {
