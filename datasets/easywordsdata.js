@@ -1,1 +1,22 @@
-let easyWords = ["ball", "cloud", "bow"];
+let easyWords = [
+  "ball",
+  "cloud",
+  "bow",
+  // "coach",
+  // "cocktail",
+  // "cowboy",
+  // "fog",
+  // "gallery",
+  // "gum",
+  // "hot",
+  // "insect",
+  // "iron",
+  // "minute",
+  // "panther",
+  // "plant",
+  // "play",
+  // "tie",
+  // "trick",
+  // "turkey",
+  // "winner",
+];
