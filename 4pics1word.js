@@ -7,14 +7,28 @@ let counter = 4;
 let hintVanishflag = true;
 let flagL = true;
 let hintChar = true;
+let level = 1;
 randomWordPicker();
 
 //mainWordpicker
 function randomWordPicker() {
-  let index = Math.floor(Math.random() * (easyWords.length - 1 - 0 + 1) + 0);
-  mainWord = easyWords[index].toUpperCase();
-  easyWords.splice(index, 1);
+  if (easyWords.length !== 0) {
+    let index = Math.floor(Math.random() * (easyWords.length - 1 - 0 + 1) + 0);
+    mainWord = easyWords[index].toUpperCase();
+    easyWords.splice(index, 1);
+  } else if (mediumWords.length !== 0) {
+    let index = Math.floor(
+      Math.random() * (mediumWords.length - 1 - 0 + 1) + 0
+    );
+    mainWord = mediumWords[index].toUpperCase();
+    mediumWords.splice(index, 1);
+  } else {
+    let index = Math.floor(Math.random() * (hardWords.length - 1 - 0 + 1) + 0);
+    mainWord = hardWords[index].toUpperCase();
+    hardWords.splice(index, 1);
+  }
 }
+
 function imgSourceGenerator() {
   for (let i = 1; i <= 4; i++) {
     document.getElementById(
@@ -205,6 +219,7 @@ function afterWinningLevel() {
   removeRenderingAfterLevelChanges();
   hintChar = true;
   flagL = true;
+  level++;
 
   givenLettersArray = [];
   guessedWordArray = [];
