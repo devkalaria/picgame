@@ -3,23 +3,35 @@ let guessedWordArray = [];
 let givenLettersArray = [];
 let renderLettersArray = [];
 let mainWord;
+let level = "";
 let counter = 4;
 let hintVanishflag = true;
 let flagL = true;
 let hintChar = true;
-randomWordPicker();
 
+randomWordPicker();
 //mainWordpicker
 function randomWordPicker() {
   let index = Math.floor(Math.random() * (easyWords.length - 1 - 0 + 1) + 0);
-  mainWord = easyWords[index].toUpperCase();
-  easyWords.splice(index, 1);
+  if (easyWords.length !== 0) {
+    level = "easy";
+    mainWord = easyWords[index].toUpperCase();
+    easyWords.splice(index, 1);
+  } else if (mediumWords.length !== 0) {
+    level = "medium";
+    mainWord = mediumWords[index].toUpperCase();
+    mediumWords.splice(index, 1);
+  } else {
+    level = "hard";
+    mainWord = hardWords[index].toUpperCase();
+    hardWords.splice(index, 1);
+  }
 }
 function imgSourceGenerator() {
   for (let i = 1; i <= 4; i++) {
     document.getElementById(
       `guessingPicture${i}`
-    ).src = `./assets/easy words images/${mainWord}/${mainWord}${i}.jpg`;
+    ).src = `./assets/${level} words images/${mainWord}/${mainWord}${i}.jpg`;
   }
 }
 // FUNCTIONS OF THE GAME
