@@ -143,15 +143,26 @@ function removeGuessLetter(indexOfGivenLetters, index) {
   guessedWordArray[index] = "";
   console.log(guessedWordArray);
 }
+let counter = 4;
+let hintVanishflag = true;
+let flagL = true;
 function hintlettersVanishButtonClicked() {
-  let arr = hintlettersVanish(givenLettersArray);
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] === "") {
-      document.getElementById(`button${i}`).style.display = "none";
+  if (counter === 0) {
+    counter = 4;
+  }
+  if (counter === 4 && flagL === true) {
+    let arr = hintlettersVanish(givenLettersArray);
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === "") {
+        document.getElementById(`button${i}`).style.display = "none";
+        hintVanishflag = false;
+        flagL = false;
+      }
     }
   }
   console.log(givenLettersArray);
 }
+
 function guessingPictureClicked(pictureSrc) {
   document.getElementById("clickedPictureDiv").style.display = "block";
   document.getElementById("pictureToZoom").src = pictureSrc;
@@ -160,9 +171,10 @@ function guessingPictureClicked(pictureSrc) {
 function closeZoomPicture() {
   document.getElementById("clickedPictureDiv").style.display = "none";
 }
+let hintChar = true;
 function hintCharacterTellerButtonClicked() {
   let newArr = hintCharacterTeller();
-  if (newArr !== "hintCannotBeUsed") {
+  if (newArr !== "hintCannotBeUsed" && hintChar === true) {
     let char = newArr[0];
     let index = newArr[1];
     guessedWordArray[index] = char;
@@ -173,6 +185,8 @@ function hintCharacterTellerButtonClicked() {
     x.setAttribute("class", "letter-buttons");
 
     charShow.appendChild(x);
+    hintChar = false;
+    document.getElementById(`button${index}`).style.display = "none";
   }
   if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
     afterWinningLevel();
@@ -189,6 +203,9 @@ function removeRenderingAfterLevelChanges() {
 }
 function afterWinningLevel() {
   removeRenderingAfterLevelChanges();
+  hintChar = true;
+  flagL = true;
+
   givenLettersArray = [];
   guessedWordArray = [];
   randomWordPicker();
@@ -199,6 +216,10 @@ function afterWinningLevel() {
   console.log("renderLettersArray: ", renderLettersArray);
   renderStartingScreen();
   renderLetters(renderLettersArray);
+  if (hintVanishflag === false) {
+    counter--;
+  }
+  console.log("counter game k baad", counter);
 }
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));
 renderLettersArray = [...givenLettersArray];
