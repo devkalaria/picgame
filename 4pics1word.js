@@ -8,7 +8,11 @@ let counter = 4;
 let hintVanishflag = true;
 let flagL = true;
 let hintChar = true;
+<<<<<<< HEAD
 let levelNo = 1;
+=======
+let soundEnabled = true;
+>>>>>>> 04a0adc15c2ebac46143c9f4fbe131e02e5544a2
 randomWordPicker();
 //mainWordpicker
 function randomWordPicker() {
@@ -251,6 +255,19 @@ function curtainEffect() {
     document.getElementById("curtainPanelRight").style.transform =
       "translateX(100%)";
   }, 1000);
+}
+function toggleSound(el) {
+  if (el.className != "pause") {
+    el.src = "./assets/soundOff.jpg";
+    el.className = "pause";
+    soundEnabled = false;
+  } else if (el.className == "pause") {
+    el.src = "./assets/soundOn.jpg";
+    el.className = "play";
+    soundEnabled = true;
+  }
+
+  return false;
 }
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));
 renderLettersArray = [...givenLettersArray];

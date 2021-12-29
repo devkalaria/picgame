@@ -11,6 +11,14 @@
     <div class="game-container">
       <div class="left-game-container">
         <img src="./assets/logo4.PNG" class="logoIcon" />
+        <div>
+          <input
+            type="image"
+            src="./assets/soundOn.jpg"
+            class="play"
+            onclick="toggleSound(this);"
+          />
+        </div>
         <div class="hints-container">
           <input
             type="image"
@@ -28,10 +36,15 @@
           />
         </div>
       </div>
-      <div class="curtain">
+      <div class="right-game-container">
         <div class="curtain__wrapper">
           <div class="curtain__panel" id="curtainPanelLeft"></div>
-          <div class="right-game-container">
+          <div class="game-content">
+            <div class="top-bar">
+              <div class="points-container"></div>
+              <div class="levelNo-container"></div>
+              <div class="timer-container"></div>
+            </div>
             <div class="pictures-div">
               <img src="" id="clickedPicture" onclick="closeZoomPicture()" />
               <div class="guessing-picture-container">
