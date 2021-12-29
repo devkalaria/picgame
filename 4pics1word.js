@@ -4,12 +4,15 @@ let givenLettersArray = [];
 let renderLettersArray = [];
 let mainWord;
 let level = "";
+let levelNo = 1;
 let counter = 4;
 let hintVanishflag = true;
 let flagL = true;
 let hintChar = true;
 let soundEnabled = true;
 let timer = 0;
+let score = 0;
+
 randomWordPicker();
 //mainWordpicker
 function randomWordPicker() {
@@ -223,7 +226,6 @@ function afterWinningLevel() {
   hintChar = true;
   flagL = true;
   levelNo++;
-  scoreGenerator();
 
   givenLettersArray = [];
   guessedWordArray = [];
@@ -239,7 +241,9 @@ function afterWinningLevel() {
     counter--;
   }
   console.log("counter game k baad", counter);
+  scoreGenerator();
   timerFunc();
+  console.log("score", score);
 }
 function curtainEffect() {
   console.log("haz");
@@ -268,36 +272,55 @@ function toggleSound(el) {
 
   return false;
 }
-function scoreGenerator(timer) {
+function scoreGenerator() {
   if (level === "easy") {
     if (timer <= 30) {
       score = score + 8;
+      return score;
     } else if (timer > 30 && timer <= 60) {
       score = score + 7;
+      return score;
     } else {
       score = score + 5;
+      return score;
     }
   }
   if (level === "medium") {
     if (timer <= 30) {
       score = score + 13;
+      return score;
     } else if (timer > 30 && timer <= 60) {
       score = score + 12;
+      return score;
     } else {
       score = score + 10;
+      return score;
     }
   }
   if (level === "hard") {
     if (timer <= 30) {
       score = score + 18;
+      return score;
     } else if (timer > 30 && timer <= 60) {
       score = score + 17;
+      return score;
     } else {
       score = score + 15;
+      return score;
     }
   }
 }
 
+function timerFunc() {
+  timer = 0;
+  let timerFunc = setInterval(function () {
+    document.getElementById("timerDisplay").innerHTML = timer + "s";
+    timer++;
+    if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
+      clearInterval(timerFunc);
+    }
+  }, 1000);
+}
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));
 renderLettersArray = [...givenLettersArray];
 renderStartingScreen();

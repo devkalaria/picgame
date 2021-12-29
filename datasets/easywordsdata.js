@@ -2,7 +2,7 @@ let easyWords = [
   "ball",
   "cloud",
   "bow",
-  // "coach",
+  "coach",
   // "cocktail",
   // "cowboy",
   // "fog",
