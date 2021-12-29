@@ -9,12 +9,8 @@ let hintVanishflag = true;
 let flagL = true;
 let hintChar = true;
 let soundEnabled = true;
-<<<<<<< HEAD
-let timer;
-let score = 0;
-=======
 let timer = 0;
->>>>>>> d6b2db9dae899287195733e1155341d62126cc78
+let score = 0;
 randomWordPicker();
 //mainWordpicker
 function randomWordPicker() {
@@ -273,7 +269,6 @@ function toggleSound(el) {
 
   return false;
 }
-<<<<<<< HEAD
 function scoreGenerator(timer) {
   if (level === "easy") {
     if (timer <= 30) {
@@ -304,7 +299,6 @@ function scoreGenerator(timer) {
   }
 }
 
-=======
 function timerFunc() {
   timer = 0;
   let timerFunc = setInterval(function () {
@@ -315,7 +309,6 @@ function timerFunc() {
     }
   }, 1000);
 }
->>>>>>> d6b2db9dae899287195733e1155341d62126cc78
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));
 renderLettersArray = [...givenLettersArray];
 renderStartingScreen();
