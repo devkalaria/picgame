@@ -22,9 +22,6 @@ body {
   border: 3px solid black;
 }
 .game-content {
-  /* background-color: #1a004f; */
-  /* margin: auto; */
-  /* width: fit-content; */
   border: 3px solid black;
   position: absolute;
   z-index: 1;
