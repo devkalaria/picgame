@@ -9,7 +9,12 @@ let hintVanishflag = true;
 let flagL = true;
 let hintChar = true;
 let soundEnabled = true;
+<<<<<<< HEAD
+let timer;
+let score = 0;
+=======
 let timer = 0;
+>>>>>>> d6b2db9dae899287195733e1155341d62126cc78
 randomWordPicker();
 //mainWordpicker
 function randomWordPicker() {
@@ -31,6 +36,7 @@ function randomWordPicker() {
     hardWords.splice(index, 1);
   }
 }
+
 function imgSourceGenerator() {
   for (let i = 1; i <= 4; i++) {
     document.getElementById(
@@ -221,6 +227,8 @@ function afterWinningLevel() {
   removeRenderingAfterLevelChanges();
   hintChar = true;
   flagL = true;
+  levelNo++;
+  scoreGenerator();
 
   givenLettersArray = [];
   guessedWordArray = [];
@@ -265,6 +273,38 @@ function toggleSound(el) {
 
   return false;
 }
+<<<<<<< HEAD
+function scoreGenerator(timer) {
+  if (level === "easy") {
+    if (timer <= 30) {
+      score = score + 8;
+    } else if (timer > 30 && timer <= 60) {
+      score = score + 7;
+    } else {
+      score = score + 5;
+    }
+  }
+  if (level === "medium") {
+    if (timer <= 30) {
+      score = score + 13;
+    } else if (timer > 30 && timer <= 60) {
+      score = score + 12;
+    } else {
+      score = score + 10;
+    }
+  }
+  if (level === "hard") {
+    if (timer <= 30) {
+      score = score + 18;
+    } else if (timer > 30 && timer <= 60) {
+      score = score + 17;
+    } else {
+      score = score + 15;
+    }
+  }
+}
+
+=======
 function timerFunc() {
   timer = 0;
   let timerFunc = setInterval(function () {
@@ -275,6 +315,7 @@ function timerFunc() {
     }
   }, 1000);
 }
+>>>>>>> d6b2db9dae899287195733e1155341d62126cc78
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));
 renderLettersArray = [...givenLettersArray];
 renderStartingScreen();
