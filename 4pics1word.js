@@ -4,6 +4,7 @@ let givenLettersArray = [];
 let renderLettersArray = [];
 let mainWord;
 let level = "";
+let levelNo = 1;
 let counter = 4;
 let hintVanishflag = true;
 let flagL = true;
@@ -223,9 +224,8 @@ function afterWinningLevel() {
   removeRenderingAfterLevelChanges();
   hintChar = true;
   flagL = true;
-  levelNo++;
-  scoreGenerator();
-
+  score = scoreGenerator();
+  console.log(score);
   givenLettersArray = [];
   guessedWordArray = [];
   randomWordPicker();
@@ -240,7 +240,9 @@ function afterWinningLevel() {
     counter--;
   }
   console.log("counter game k baad", counter);
+
   timerFunc();
+  levelNo++;
 }
 function curtainEffect() {
   console.log("haz");
@@ -269,32 +271,41 @@ function toggleSound(el) {
 
   return false;
 }
-function scoreGenerator(timer) {
+function scoreGenerator() {
   if (level === "easy") {
     if (timer <= 30) {
       score = score + 8;
+      return score;
     } else if (timer > 30 && timer <= 60) {
       score = score + 7;
-    } else {
+      return score;
+    } else if (timer > 60) {
       score = score + 5;
+      return score;
     }
   }
   if (level === "medium") {
     if (timer <= 30) {
       score = score + 13;
+      return score;
     } else if (timer > 30 && timer <= 60) {
       score = score + 12;
-    } else {
+      return score;
+    } else if (timer > 60) {
       score = score + 10;
+      return score;
     }
   }
   if (level === "hard") {
     if (timer <= 30) {
       score = score + 18;
+      return score;
     } else if (timer > 30 && timer <= 60) {
       score = score + 17;
-    } else {
+      return score;
+    } else if (timer > 60) {
       score = score + 15;
+      return score;
     }
   }
 }
