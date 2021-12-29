@@ -9,6 +9,7 @@ let hintVanishflag = true;
 let flagL = true;
 let hintChar = true;
 let soundEnabled = true;
+let timer = 0;
 randomWordPicker();
 //mainWordpicker
 function randomWordPicker() {
@@ -235,6 +236,7 @@ function afterWinningLevel() {
     counter--;
   }
   console.log("counter game k baad", counter);
+  timerFunc();
 }
 function curtainEffect() {
   console.log("haz");
@@ -263,7 +265,18 @@ function toggleSound(el) {
 
   return false;
 }
+function timerFunc() {
+  timer = 0;
+  let timerFunc = setInterval(function () {
+    document.getElementById("timerDisplay").innerHTML = timer + "s";
+    timer++;
+    if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
+      clearInterval(timerFunc);
+    }
+  }, 1000);
+}
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));
 renderLettersArray = [...givenLettersArray];
 renderStartingScreen();
 renderLetters(renderLettersArray);
+timerFunc();
