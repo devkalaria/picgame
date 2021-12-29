@@ -48,6 +48,10 @@ body {
   height: 4rem;
   background-color: red;
 }
+.top-bar-content {
+  text-align: center;
+  font-size: 10px;
+}
 .pictures-div {
   position: relative;
   width: 20rem;
