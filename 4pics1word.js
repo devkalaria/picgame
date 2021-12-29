@@ -8,11 +8,9 @@ let counter = 4;
 let hintVanishflag = true;
 let flagL = true;
 let hintChar = true;
-<<<<<<< HEAD
-let levelNo = 1;
-=======
 let soundEnabled = true;
->>>>>>> 04a0adc15c2ebac46143c9f4fbe131e02e5544a2
+let timer;
+let score = 0;
 randomWordPicker();
 //mainWordpicker
 function randomWordPicker() {
@@ -226,6 +224,7 @@ function afterWinningLevel() {
   hintChar = true;
   flagL = true;
   levelNo++;
+  scoreGenerator();
 
   givenLettersArray = [];
   guessedWordArray = [];
@@ -269,6 +268,36 @@ function toggleSound(el) {
 
   return false;
 }
+function scoreGenerator(timer) {
+  if (level === "easy") {
+    if (timer <= 30) {
+      score = score + 8;
+    } else if (timer > 30 && timer <= 60) {
+      score = score + 7;
+    } else {
+      score = score + 5;
+    }
+  }
+  if (level === "medium") {
+    if (timer <= 30) {
+      score = score + 13;
+    } else if (timer > 30 && timer <= 60) {
+      score = score + 12;
+    } else {
+      score = score + 10;
+    }
+  }
+  if (level === "hard") {
+    if (timer <= 30) {
+      score = score + 18;
+    } else if (timer > 30 && timer <= 60) {
+      score = score + 17;
+    } else {
+      score = score + 15;
+    }
+  }
+}
+
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));
 renderLettersArray = [...givenLettersArray];
 renderStartingScreen();
