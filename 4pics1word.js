@@ -8,20 +8,23 @@ let counter = 4;
 let hintVanishflag = true;
 let flagL = true;
 let hintChar = true;
-
+let soundEnabled = true;
 randomWordPicker();
 //mainWordpicker
 function randomWordPicker() {
-  let index = Math.floor(Math.random() * (easyWords.length - 1 - 0 + 1) + 0);
+  let index;
   if (easyWords.length !== 0) {
+    index = Math.floor(Math.random() * (easyWords.length - 1 - 0 + 1) + 0);
     level = "easy";
     mainWord = easyWords[index].toUpperCase();
     easyWords.splice(index, 1);
   } else if (mediumWords.length !== 0) {
+    index = Math.floor(Math.random() * (mediumWords.length - 1 - 0 + 1) + 0);
     level = "medium";
     mainWord = mediumWords[index].toUpperCase();
     mediumWords.splice(index, 1);
   } else {
+    index = Math.floor(Math.random() * (hardWords.length - 1 - 0 + 1) + 0);
     level = "hard";
     mainWord = hardWords[index].toUpperCase();
     hardWords.splice(index, 1);
@@ -246,6 +249,19 @@ function curtainEffect() {
     document.getElementById("curtainPanelRight").style.transform =
       "translateX(100%)";
   }, 1000);
+}
+function toggleSound(el) {
+  if (el.className != "pause") {
+    el.src = "./assets/soundOff.jpg";
+    el.className = "pause";
+    soundEnabled = false;
+  } else if (el.className == "pause") {
+    el.src = "./assets/soundOn.jpg";
+    el.className = "play";
+    soundEnabled = true;
+  }
+
+  return false;
 }
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));
 renderLettersArray = [...givenLettersArray];
