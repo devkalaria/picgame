@@ -224,6 +224,9 @@ function hintlettersVanishButtonClicked() {
     counter = 4;
   }
   if (counter === 4 && flagL === true) {
+    if (soundEnabled === true) {
+      document.getElementById("hintClicked").play();
+    }
     let arr = hintlettersVanish(givenLettersArray);
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] === "") {
@@ -239,15 +242,24 @@ function hintlettersVanishButtonClicked() {
 function guessingPictureClicked(pictureSrc) {
   document.getElementById("clickedPicture").style.display = "block";
   document.getElementById("clickedPicture").src = pictureSrc;
+  if (soundEnabled === true) {
+    playSound();
+  }
 }
 //this picture will closes the enlarged picture
 function closeZoomPicture() {
   document.getElementById("clickedPicture").style.display = "none";
+  if (soundEnabled === true) {
+    playSound();
+  }
 }
 //when this hint is clicked it will render a letter to the main word area
 function hintCharacterTellerButtonClicked() {
   let newArr = hintCharacterTeller();
   if (newArr !== "hintCannotBeUsed" && hintChar === true) {
+    if (soundEnabled === true) {
+      document.getElementById("hintClicked").play();
+    }
     let char = newArr[0];
     let index = newArr[1];
     guessedWordArray[index] = char;
@@ -283,6 +295,9 @@ function removeRenderingAfterLevelChanges() {
 }
 //effects afer wiining a level will occur because of this function
 function afterWinningLevel() {
+  if (soundEnabled === true) {
+    document.getElementById("winningAudio").play();
+  }
   removeRenderingAfterLevelChanges();
   hintChar = true;
   flagL = true;
@@ -414,10 +429,14 @@ function timerFunc() {
     }
   }, 1000);
 }
+function playSound() {
+  let sound = document.getElementById("selectOption");
+  sound.load();
+  sound.play();
+}
 //request to open game in full screen
 function openFullscreen() {
-  document.getElementsByClassName("full-screen-Button")[0].style.display =
-    "none";
+  document.querySelector("full-screen-button").style.display = "none";
   elem = document.querySelector("html");
   elem.requestFullscreen();
   // window.requestFullscreen();
