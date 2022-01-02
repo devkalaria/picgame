@@ -139,6 +139,9 @@ function renderLetters(arr) {
   }
 }
 function givenLetterToGuessWord(num) {
+  if (soundEnabled === true) {
+    playSound();
+  }
   let char = document.getElementById(`button${num}`);
   char.style.display = "none";
   givenLettersArray[num] = "";
@@ -161,6 +164,9 @@ function givenLetterToGuessWord(num) {
   }
 }
 function removeGuessLetter(indexOfGivenLetters, index) {
+  if (soundEnabled === true) {
+    playSound();
+  }
   let char = document.getElementById(`shiftedButton${indexOfGivenLetters}`);
   char.remove();
   document.getElementById(`button${indexOfGivenLetters}`).style.display =
@@ -173,6 +179,9 @@ function hintlettersVanishButtonClicked() {
     counter = 4;
   }
   if (counter === 4 && flagL === true) {
+    if (soundEnabled === true) {
+      document.getElementById("hintClicked").play();
+    }
     let arr = hintlettersVanish(givenLettersArray);
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] === "") {
@@ -188,13 +197,22 @@ function guessingPictureClicked(pictureSrc) {
   document.getElementById("clickedPicture").style.display = "block";
   document.getElementById("clickedPicture").src = pictureSrc;
   console.log(pictureSrc);
+  if (soundEnabled === true) {
+    playSound();
+  }
 }
 function closeZoomPicture() {
   document.getElementById("clickedPicture").style.display = "none";
+  if (soundEnabled === true) {
+    playSound();
+  }
 }
 function hintCharacterTellerButtonClicked() {
   let newArr = hintCharacterTeller();
   if (newArr !== "hintCannotBeUsed" && hintChar === true) {
+    if (soundEnabled === true) {
+      document.getElementById("hintClicked").play();
+    }
     let char = newArr[0];
     let index = newArr[1];
     guessedWordArray[index] = char;
@@ -222,11 +240,14 @@ function removeRenderingAfterLevelChanges() {
   }
 }
 function afterWinningLevel() {
+  if (soundEnabled === true) {
+    document.getElementById("winningAudio").play();
+  }
   removeRenderingAfterLevelChanges();
   hintChar = true;
   flagL = true;
-  levelNo++;
-
+  score = scoreGenerator();
+  console.log(score);
   givenLettersArray = [];
   guessedWordArray = [];
   randomWordPicker();
@@ -241,9 +262,9 @@ function afterWinningLevel() {
     counter--;
   }
   console.log("counter game k baad", counter);
-  scoreGenerator();
+
   timerFunc();
-  console.log("score", score);
+  levelNo++;
 }
 function curtainEffect() {
   console.log("haz");
@@ -280,7 +301,7 @@ function scoreGenerator() {
     } else if (timer > 30 && timer <= 60) {
       score = score + 7;
       return score;
-    } else {
+    } else if (timer > 60) {
       score = score + 5;
       return score;
     }
@@ -292,7 +313,7 @@ function scoreGenerator() {
     } else if (timer > 30 && timer <= 60) {
       score = score + 12;
       return score;
-    } else {
+    } else if (timer > 60) {
       score = score + 10;
       return score;
     }
@@ -304,7 +325,7 @@ function scoreGenerator() {
     } else if (timer > 30 && timer <= 60) {
       score = score + 17;
       return score;
-    } else {
+    } else if (timer > 60) {
       score = score + 15;
       return score;
     }
@@ -320,6 +341,11 @@ function timerFunc() {
       clearInterval(timerFunc);
     }
   }, 1000);
+}
+function playSound() {
+  let sound = document.getElementById("selectOption");
+  sound.load();
+  sound.play();
 }
 givenLettersArray = mixing(gameButtonAlphabets(mainWord));
 renderLettersArray = [...givenLettersArray];
