@@ -33,6 +33,9 @@ function randomWordPicker() {
     mainWord = hardWords[index].toUpperCase();
     hardWords.splice(index, 1);
   } else {
+    if (soundEnabled === true) {
+      document.getElementById("gameWinAudio").play();
+    }
     document.getElementById("displayScore").innerHTML = score;
     document.getElementById("displayTime").innerHTML =
       fancyTimeFormat(totalTime);
@@ -152,6 +155,9 @@ function renderLetters(arr) {
 //when a letter is clicked from given letters this function will render it to
 //guessed word area
 function givenLetterToGuessWord(num) {
+  if (soundEnabled === true) {
+    playSound();
+  }
   let proceed = false;
   for (let i = 0; i < guessedWordArray.length; i++) {
     if (guessedWordArray[i] === "") {
@@ -195,6 +201,9 @@ function givenLetterToGuessWord(num) {
       wrongAnswerPic === true &&
       wordChecker(guessedWordArray.join(""), mainWord) === false
     ) {
+      if (soundEnabled === true) {
+        document.getElementById("wrongAnswerAudio").play();
+      }
       document.getElementById("wrongAnswer").style.display = "block";
       setTimeout(() => {
         document.getElementById("wrongAnswer").style.display = "none";
@@ -211,6 +220,9 @@ function givenLetterToGuessWord(num) {
 }
 //this function will remove letter from guess word on click
 function removeGuessLetter(indexOfGivenLetters, index) {
+  if (soundEnabled === true) {
+    playSound();
+  }
   let char = document.getElementById(`shiftedButton${indexOfGivenLetters}`);
   char.remove();
   document.getElementById(`button${indexOfGivenLetters}`).style.display =
@@ -354,12 +366,18 @@ function toggleSound(el) {
 }
 //when instruction button clicked this will render information on screen
 function instructionBtnClicked() {
+  if (soundEnabled === true) {
+    playSound();
+  }
   document.getElementById("instructions-area-on-btn").style.animation =
     "view-instructions-on-btn 1s ease 0s 1 normal forwards";
   document.getElementById("instructionsByBtn").innerHTML = instructions;
 }
 //exit button will close instructions
 function exitInstructions() {
+  if (soundEnabled === true) {
+    playSound();
+  }
   document.getElementById("instructions-area-on-btn").style.animation =
     "vanish-instructions-on-btn 1.3s ease 0s 1 normal forwards";
 }
@@ -436,7 +454,8 @@ function playSound() {
 }
 //request to open game in full screen
 function openFullscreen() {
-  document.querySelector("full-screen-button").style.display = "none";
+  document.getElementsByClassName("full-screen-Button")[0].style.display =
+    "none";
   elem = document.querySelector("html");
   elem.requestFullscreen();
   // window.requestFullscreen();

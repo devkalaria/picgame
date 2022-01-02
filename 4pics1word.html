@@ -9,9 +9,31 @@
     <title>4-PIC-1-WORD</title>
   </head>
   <body>
-    <audio id="selectOption" src="./assets/audios/8-bit-pop-sound-effect.mp3" autoplay="false" ></audio>
-    <audio id="hintClicked" src="./assets/audios/Aww-sound-effect.mp3" autoplay="false" ></audio>
-    <audio id="winningAudio" src="./assets/audios/Winning-sound-effect.mp3" autoplay="false" ></audio>
+    <audio
+      id="selectOption"
+      src="./assets/audios/8-bit-pop-sound-effect.mp3"
+      autoplay="false"
+    ></audio>
+    <audio
+      id="hintClicked"
+      src="./assets/audios/Aww-sound-effect.mp3"
+      autoplay="false"
+    ></audio>
+    <audio
+      id="winningAudio"
+      src="./assets/audios/level-completed.mp3"
+      autoplay="false"
+    ></audio>
+    <audio
+      id="wrongAnswerAudio"
+      src="./assets/audios/Wrong Clakson Sound Effect.mp3"
+      autoplay="false"
+    ></audio>
+    <audio
+      id="gameWinAudio"
+      src="./assets/audios/mixkit-end-of-show-clapping-crowd-477.wav"
+      autoplay="false"
+    ></audio>
     <div class="game-container">
       <div id="home-screen">
         <button onclick="openFullscreen();" class="full-screen-Button">
@@ -182,8 +204,8 @@
               You've completed all the levels of this game and your total score
               is <span id="displayScore"></span> out of 600 in the total time of
               <span id="displayTime"></span><br />
-              <br /><br />Send the screenshot of this page to your friends and
-              link of this game to compete with them.
+              <br /><br />Send the link of this game and screenshot of this page
+              to your friends to compete with them.
             </p>
           </div>
         </div>
