@@ -4,103 +4,193 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./homeScreen.css" />
     <link rel="stylesheet" href="./4pics1word.css" />
     <title>4-PIC-1-WORD</title>
   </head>
   <body>
     <div class="game-container">
-      <div class="left-game-container">
-        <img src="./assets/logo4.PNG" class="logoIcon" />
-        <div>
-          <input
-            type="image"
-            src="./assets/soundOn.jpg"
-            class="play"
-            onclick="toggleSound(this);"
-          />
-        </div>
-        <div class="hints-container">
-          <input
-            type="image"
-            onclick="hintlettersVanishButtonClicked()"
-            id="vanish-hint"
-            class="hint-button"
-            src="./assets/hint_remove_letters.png"
-          />
-          <input
-            type="image"
-            onclick="hintCharacterTellerButtonClicked()"
-            id="char-teller"
-            class="hint-button"
-            src="./assets/hint_add_a_letter.png"
-          />
+      <div id="home-screen">
+        <button onclick="openFullscreen();" class="full-screen-Button">
+          Open Game in Fullscreen Mode
+        </button>
+        <img src="./assets/logo4.PNG" class="starting-screenimg" />
+        <div class="starting-playbutton" onclick="playButtonClicked()">
+          <span></span>
         </div>
       </div>
-      <div class="right-game-container">
-        <div class="curtain__wrapper">
-          <div class="curtain__panel" id="curtainPanelLeft"></div>
-          <div class="game-content">
-            <div class="top-bar">
-              <div class="points-container"></div>
-              <div class="levelNo-container"></div>
-              <div class="timer-container">
-                <p>TIME</p>
-                <p id="timerDisplay" class="top-bar-content"></p>
-              </div>
+      <div id="instructions-area">
+        <div class="instructionsHeading">INSTRUCTIONS</div>
+        <div id="instructions-text">
+          <div id="instructions"></div>
+        </div>
+        <div class="proceed-button">
+          <span class="proceed-btn" onclick="playGame()">proceed</span>
+        </div>
+      </div>
+      <div style="display: flex">
+        <div class="left-game-container">
+          <img src="./assets/logo4.PNG" class="logoIcon" />
+          <div class="left-container-buttons-container">
+            <div>
+              <input
+                type="image"
+                src="./assets/soundOn.jpg"
+                class="play"
+                onclick="toggleSound(this);"
+              />
             </div>
-            <div class="pictures-div">
-              <img src="" id="clickedPicture" onclick="closeZoomPicture()" />
-              <div class="guessing-picture-container">
-                <img
-                  src=""
-                  class="guessing-picture"
-                  id="guessingPicture1"
-                  onclick="guessingPictureClicked(src)"
-                />
-              </div>
-              <div class="guessing-picture-container">
-                <img
-                  src=""
-                  class="guessing-picture"
-                  id="guessingPicture2"
-                  onclick="guessingPictureClicked(src)"
-                />
-              </div>
-              <div class="guessing-picture-container">
-                <img
-                  src=""
-                  class="guessing-picture"
-                  id="guessingPicture3"
-                  onclick="guessingPictureClicked(src)"
-                />
-              </div>
-              <div class="guessing-picture-container">
-                <img
-                  src=""
-                  class="guessing-picture"
-                  id="guessingPicture4"
-                  onclick="guessingPictureClicked(src)"
-                />
-              </div>
+            <div>
+              <input
+                type="image"
+                src="./assets/instruction-icon.png"
+                class="instruction-button"
+                onclick="instructionBtnClicked()"
+              />
             </div>
-            <div
-              id="guessWord"
-              style="
-                display: flex;
-                width: fit-content;
-                margin: auto;
-                padding: 10px;
-              "
-            ></div>
-            <div id="givenLetters" class="keyboard-layout"></div>
+            <div>
+              <input
+                type="image"
+                onclick="hintlettersVanishButtonClicked()"
+                id="vanish-hint"
+                class="hint-button"
+                src="./assets/hint_remove_letters.png"
+              />
+            </div>
+            <div>
+              <input
+                type="image"
+                onclick="hintCharacterTellerButtonClicked()"
+                id="char-teller"
+                class="hint-button"
+                src="./assets/hint_add_a_letter.png"
+              />
+            </div>
           </div>
-          <div class="curtain__panel" id="curtainPanelRight"></div>
+        </div>
+        <div class="right-game-container">
+          <div class="curtain__wrapper">
+            <div class="curtain__panel" id="curtainPanelLeft"></div>
+            <div class="game-content">
+              <div class="top-bar">
+                <div class="points-container">
+                  <p class="top-bar-content">SCORE</p>
+                  <p id="scoreDisplay" class="top-bar-content">0</p>
+                </div>
+                <div class="levelNo-container">
+                  <p class="top-bar-content">LEVEL NO</p>
+                  <p id="levelNoDisplay" class="top-bar-content">1</p>
+                </div>
+                <div class="timer-container">
+                  <p class="top-bar-content">TIME</p>
+                  <p id="timerDisplay" class="top-bar-content">0:00</p>
+                </div>
+              </div>
+              <div class="pictures-div">
+                <img
+                  src="./assets/success.png"
+                  id="correctAnswer"
+                  class="success-mistake"
+                />
+                <img
+                  src="./assets/mistake.png"
+                  id="wrongAnswer"
+                  class="success-mistake"
+                />
+                <img src="" id="clickedPicture" onclick="closeZoomPicture()" />
+                <div class="guessing-picture-container">
+                  <img
+                    src=""
+                    class="guessing-picture"
+                    id="guessingPicture1"
+                    onclick="guessingPictureClicked(src)"
+                  />
+                </div>
+                <div class="guessing-picture-container">
+                  <img
+                    src=""
+                    class="guessing-picture"
+                    id="guessingPicture2"
+                    onclick="guessingPictureClicked(src)"
+                  />
+                </div>
+                <div class="guessing-picture-container">
+                  <img
+                    src=""
+                    class="guessing-picture"
+                    id="guessingPicture3"
+                    onclick="guessingPictureClicked(src)"
+                  />
+                </div>
+                <div class="guessing-picture-container">
+                  <img
+                    src=""
+                    class="guessing-picture"
+                    id="guessingPicture4"
+                    onclick="guessingPictureClicked(src)"
+                  />
+                </div>
+              </div>
+              <div
+                id="guessWord"
+                style="
+                  display: flex;
+                  width: fit-content;
+                  margin: auto;
+                  padding: 10px;
+                "
+              ></div>
+              <div id="givenLetters" class="keyboard-layout"></div>
+            </div>
+            <div class="curtain__panel" id="curtainPanelRight"></div>
+          </div>
         </div>
       </div>
+      <!-- INSTUCTION BOX After CLICKING BUTTON -->
+      <div id="instructions-area-on-btn" class="instructions-area-on-btn">
+        <div class="instructionsHeading">
+          INSTRUCTIONS<img
+            src="./assets/but_exit.png"
+            class="exit-instructions-btn"
+            onclick="exitInstructions()"
+          />
+        </div>
+        <div id="instructions-text-on-btn">
+          <div id="instructionsByBtn"></div>
+        </div>
+      </div>
+      <!-- ----------------------------------------->
+      <!-- AFTER WINNING BOX -->
+      <div id="afterWinningDisplay" class="instructions-area-on-btn">
+        <div class="afterCompletingGame">
+          <div>
+            <img
+              src="assets/congratz.gif"
+              style="
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+                margin-top: 5rem;
+              "
+            />
+          </div>
+          <div class="after-winning-area">
+            <p>
+              You've completed all the levels of this game and your total score
+              is <span id="displayScore"></span> out of 600 in the total time of
+              <span id="displayTime"></span><br />
+              <br /><br />Send the screenshot of this page to your friends and
+              link of this game to compete with them.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- ----------------- -->
     </div>
   </body>
   <script src="./datasets/easywordsdata.js"></script>
   <script src="./datasets/mediumwordsdata.js"></script>
   <script src="./datasets/hardwordsdata.js"></script>
+  <script src="./datasets/instructions.js"></script>
   <script src="./4pics1word.js"></script>
 </html>

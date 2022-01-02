@@ -12,8 +12,9 @@ let hintChar = true;
 let soundEnabled = true;
 let timer = 0;
 let score = 0;
-randomWordPicker();
-//mainWordpicker
+let totalTime = 0;
+
+//mainWordpickerFromDataSets
 function randomWordPicker() {
   let index;
   if (easyWords.length !== 0) {
@@ -26,14 +27,20 @@ function randomWordPicker() {
     level = "medium";
     mainWord = mediumWords[index].toUpperCase();
     mediumWords.splice(index, 1);
-  } else {
+  } else if (hardWords.length !== 0) {
     index = Math.floor(Math.random() * (hardWords.length - 1 - 0 + 1) + 0);
     level = "hard";
     mainWord = hardWords[index].toUpperCase();
     hardWords.splice(index, 1);
+  } else {
+    document.getElementById("displayScore").innerHTML = score;
+    document.getElementById("displayTime").innerHTML =
+      fancyTimeFormat(totalTime);
+    document.getElementById("afterWinningDisplay").style.animation =
+      "view-instructions-on-btn 0.8s ease 0s 1 normal forwards";
   }
 }
-
+//NewimagesCreatorAfterLevelChanges
 function imgSourceGenerator() {
   for (let i = 1; i <= 4; i++) {
     document.getElementById(
@@ -41,19 +48,19 @@ function imgSourceGenerator() {
     ).src = `./assets/${level} words images/${mainWord}/${mainWord}${i}.jpg`;
   }
 }
-// FUNCTIONS OF THE GAME
+//Adding more random alphabets with main word included
 function gameButtonAlphabets(str) {
   for (let i = 0; i < str.length; i++) {
     givenLettersArray.push(str[i]);
   }
   for (let i = str.length; i < 12; i++) {
     let num = Math.floor(Math.random() * (90 - 65 + 1) + 65);
-    //console.log(num);
     let char = String.fromCharCode(num);
     givenLettersArray.push(char);
   }
   return givenLettersArray;
 }
+//Randomizing all alphabets with main word included
 function mixing(arr) {
   let deckShrinklength = arr.length;
   let mixedGivenLettersArray = [];
@@ -65,6 +72,7 @@ function mixing(arr) {
   }
   return mixedGivenLettersArray;
 }
+//checking of the guessed word and main word if its same or not
 function wordChecker(orignalStr, inuptStr) {
   if (inuptStr.toUpperCase() === orignalStr.toUpperCase()) {
     return true;
@@ -72,19 +80,21 @@ function wordChecker(orignalStr, inuptStr) {
     return false;
   }
 }
+//this function will remove some alphabets from given letters array
 function hintlettersVanish(arr) {
   for (let i = 0; i < 2; i++) {
     let index = Math.floor(Math.random() * (arr.length - 1 - 0 + 1) + 0);
     let char = arr[index];
-    while (mainWord.includes(char, 0) === true) {
+    while (mainWord.includes(char, 0) === true || char === "") {
       index = Math.floor(Math.random() * (arr.length - 1 - 0 + 1) + 0);
       char = arr[index];
     }
-    console.log(char);
     arr[index] = "";
   }
   return arr;
 }
+//this function will return a correct letter from given letters and index of that
+//letter in which the letter will be placed
 function hintCharacterTeller() {
   let flag;
   for (let i = 0; i < mainWord.length; i++) {
@@ -93,7 +103,6 @@ function hintCharacterTeller() {
       break;
     }
   }
-  console.log(flag);
   if (flag === true) {
     let index = Math.floor(Math.random() * (mainWord.length - 1 - 0 + 1) + 0);
     while (guessedWordArray[index] !== "") {
@@ -108,12 +117,14 @@ function hintCharacterTeller() {
     return "hintCannotBeUsed";
   }
 }
+//this function will render the starting screen of the main game
 function renderStartingScreen() {
   let wordArea = document.getElementById("guessWord");
   let givenLetters = document.getElementById("givenLetters");
   for (let i = 0; i < mainWord.length; i++) {
     wordArea.innerHTML =
-      wordArea.innerHTML + `<div class='buttons-div' id="letterNo${i}"></div>`;
+      wordArea.innerHTML +
+      `<div class='buttons-div mobile-view-div' id="letterNo${i}"></div>`;
   }
   for (let i = 0; i < 12; i++) {
     givenLetters.innerHTML =
@@ -125,6 +136,7 @@ function renderStartingScreen() {
   }
   imgSourceGenerator();
 }
+//this function will render given letter in the main game screen
 function renderLetters(arr) {
   for (let i = 0; i < 12; i++) {
     let id = document.getElementById(`button-div${i}`);
@@ -137,36 +149,76 @@ function renderLetters(arr) {
     id.appendChild(x);
   }
 }
+//when a letter is clicked from given letters this function will render it to
+//guessed word area
 function givenLetterToGuessWord(num) {
-  let char = document.getElementById(`button${num}`);
-  char.style.display = "none";
-  givenLettersArray[num] = "";
-  let i = 0;
-  while (guessedWordArray[i] !== "") {
-    i++;
+  let proceed = false;
+  for (let i = 0; i < guessedWordArray.length; i++) {
+    if (guessedWordArray[i] === "") {
+      proceed = true;
+      break;
+    }
   }
-  let charShow = document.getElementById(`letterNo${i}`);
-  let x = document.createElement("INPUT");
-  x.setAttribute("type", "button");
-  x.setAttribute("value", `${renderLettersArray[num]}`);
-  x.setAttribute("class", "letter-buttons");
-  x.setAttribute("id", `shiftedButton${num}`);
-  x.setAttribute("onclick", `removeGuessLetter(${num} , ${i})`);
-  charShow.appendChild(x);
-  guessedWordArray[i] = x.value;
-  if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
-    setTimeout(afterWinningLevel, 1300);
-    setTimeout(curtainEffect, 1000);
+  if (proceed === true) {
+    let char = document.getElementById(`button${num}`);
+    char.style.display = "none";
+    givenLettersArray[num] = "";
+    let i = 0;
+    while (guessedWordArray[i] !== "") {
+      i++;
+      if (i === mainWord.length - 1) {
+        break;
+      }
+    }
+    let charShow = document.getElementById(`letterNo${i}`);
+    let x = document.createElement("INPUT");
+    x.setAttribute("type", "button");
+    x.setAttribute("value", `${renderLettersArray[num]}`);
+    x.setAttribute("class", "letter-buttons");
+    x.setAttribute("id", `shiftedButton${num}`);
+    x.setAttribute("onclick", `removeGuessLetter(${num} , ${i})`);
+    charShow.appendChild(x);
+    guessedWordArray[i] = x.value;
+    if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
+      document.getElementById("correctAnswer").style.display = "block";
+      setTimeout(afterWinningLevel, 900);
+      setTimeout(curtainEffect, 500);
+    }
+    let wrongAnswerPic = true;
+    for (let i = 0; i < guessedWordArray.length; i++) {
+      if (guessedWordArray[i] === "") {
+        wrongAnswerPic = false;
+        break;
+      }
+    }
+    if (
+      wrongAnswerPic === true &&
+      wordChecker(guessedWordArray.join(""), mainWord) === false
+    ) {
+      document.getElementById("wrongAnswer").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("wrongAnswer").style.display = "none";
+      }, 800);
+    }
   }
+  // if (
+  //   guessedWordArray[guessedWordArray.length - 1] !== "" &&
+  //   wordChecker(guessedWordArray.join(""), mainWord) === false
+  // ) {
+  //   document.getElementById("wrongAnswer").style.display = "block";
+  //   resetGuessLetters();
+  // }
 }
+//this function will remove letter from guess word on click
 function removeGuessLetter(indexOfGivenLetters, index) {
   let char = document.getElementById(`shiftedButton${indexOfGivenLetters}`);
   char.remove();
   document.getElementById(`button${indexOfGivenLetters}`).style.display =
     "block";
+
   guessedWordArray[index] = "";
-  console.log(guessedWordArray);
 }
+//when this hint is clicked it will unrender some letters from given letters
 function hintlettersVanishButtonClicked() {
   if (counter === 0) {
     counter = 4;
@@ -180,17 +232,19 @@ function hintlettersVanishButtonClicked() {
         flagL = false;
       }
     }
+    document.getElementById("vanish-hint").style.filter = "brightness(30%)";
   }
-  console.log(givenLettersArray);
 }
+//when you click a picture this picture will enlarge that picture
 function guessingPictureClicked(pictureSrc) {
   document.getElementById("clickedPicture").style.display = "block";
   document.getElementById("clickedPicture").src = pictureSrc;
-  console.log(pictureSrc);
 }
+//this picture will closes the enlarged picture
 function closeZoomPicture() {
   document.getElementById("clickedPicture").style.display = "none";
 }
+//when this hint is clicked it will render a letter to the main word area
 function hintCharacterTellerButtonClicked() {
   let newArr = hintCharacterTeller();
   if (newArr !== "hintCannotBeUsed" && hintChar === true) {
@@ -204,14 +258,21 @@ function hintCharacterTellerButtonClicked() {
     x.setAttribute("class", "letter-buttons");
     charShow.appendChild(x);
     hintChar = false;
-    document.getElementById(`button${index}`).style.display = "none";
+    for (let i = 0; i < givenLettersArray.length; i++) {
+      if (givenLettersArray[i] === char) {
+        givenLettersArray[i] = "";
+        document.getElementById(`button${i}`).style.display = "none";
+        break;
+      }
+    }
+    document.getElementById("char-teller").style.filter = "brightness(30%)";
   }
   if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
     setTimeout(afterWinningLevel, 1400);
     setTimeout(curtainEffect, 1000);
   }
-  console.log(guessedWordArray);
 }
+//this function will remove every renderings when the level changes
 function removeRenderingAfterLevelChanges() {
   for (let i = 0; i < mainWord.length; i++) {
     document.getElementById(`letterNo${i}`).remove();
@@ -220,32 +281,36 @@ function removeRenderingAfterLevelChanges() {
     document.getElementById(`button-div${i}`).remove();
   }
 }
+//effects afer wiining a level will occur because of this function
 function afterWinningLevel() {
   removeRenderingAfterLevelChanges();
   hintChar = true;
   flagL = true;
+  document.getElementById("char-teller").style.filter = "brightness(100%)";
+
+  document.getElementById("correctAnswer").style.display = "none";
   score = scoreGenerator();
-  console.log(score);
+  document.getElementById("scoreDisplay").innerHTML = score;
   givenLettersArray = [];
   guessedWordArray = [];
+  givenLettersArrayForReseting = [];
   randomWordPicker();
-  console.log("mainWord: ", mainWord);
   givenLettersArray = mixing(gameButtonAlphabets(mainWord));
-  console.log("givenLettersArray: ", givenLettersArray);
   renderLettersArray = [...givenLettersArray];
-  console.log("renderLettersArray: ", renderLettersArray);
   renderStartingScreen();
   renderLetters(renderLettersArray);
   if (hintVanishflag === false) {
     counter--;
   }
-  console.log("counter game k baad", counter);
-
+  if (counter === 0)
+    document.getElementById("vanish-hint").style.filter = "brightness(100%)";
+  totalTime = totalTime + timer;
   timerFunc();
   levelNo++;
+  document.getElementById("levelNoDisplay").innerHTML = levelNo;
 }
+//curtain effect is controlled by this function
 function curtainEffect() {
-  console.log("haz");
   document.getElementById("curtainPanelLeft").style.transform = "translateX(0)";
   document.getElementById("curtainPanelRight").style.transform =
     "translateX(0)";
@@ -258,6 +323,7 @@ function curtainEffect() {
       "translateX(100%)";
   }, 1000);
 }
+//this function will toggle image of sound enable/disable.
 function toggleSound(el) {
   if (el.className != "pause") {
     el.src = "./assets/soundOff.jpg";
@@ -271,6 +337,18 @@ function toggleSound(el) {
 
   return false;
 }
+//when instruction button clicked this will render information on screen
+function instructionBtnClicked() {
+  document.getElementById("instructions-area-on-btn").style.animation =
+    "view-instructions-on-btn 1s ease 0s 1 normal forwards";
+  document.getElementById("instructionsByBtn").innerHTML = instructions;
+}
+//exit button will close instructions
+function exitInstructions() {
+  document.getElementById("instructions-area-on-btn").style.animation =
+    "vanish-instructions-on-btn 1.3s ease 0s 1 normal forwards";
+}
+//this function will calculate score after every level changes according to time
 function scoreGenerator() {
   if (level === "easy") {
     if (timer <= 30) {
@@ -309,19 +387,83 @@ function scoreGenerator() {
     }
   }
 }
+//this function will display time in hr:min:s format
+function fancyTimeFormat(duration) {
+  let hrs = ~~(duration / 3600);
+  let mins = ~~((duration % 3600) / 60);
+  let secs = ~~duration % 60;
 
+  let ret = "";
+
+  if (hrs > 0) {
+    ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+  }
+
+  ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+  ret += "" + secs;
+  return ret;
+}
+//this function start a timer from 0 to infinite unless the level changes
 function timerFunc() {
   timer = 0;
   let timerFunc = setInterval(function () {
-    document.getElementById("timerDisplay").innerHTML = timer + "s";
+    document.getElementById("timerDisplay").innerHTML = fancyTimeFormat(timer);
     timer++;
     if (wordChecker(guessedWordArray.join(""), mainWord) === true) {
       clearInterval(timerFunc);
     }
   }, 1000);
 }
-givenLettersArray = mixing(gameButtonAlphabets(mainWord));
-renderLettersArray = [...givenLettersArray];
-renderStartingScreen();
-renderLetters(renderLettersArray);
-timerFunc();
+//request to open game in full screen
+function openFullscreen() {
+  document.getElementsByClassName("full-screen-Button")[0].style.display =
+    "none";
+  elem = document.querySelector("html");
+  elem.requestFullscreen();
+  // window.requestFullscreen();
+}
+//this function will remove the first screen and reveal instructions
+function playButtonClicked() {
+  document.getElementById("home-screen").style.animation =
+    "vanish-homescreen 1.5s";
+  setTimeout(() => {
+    document.getElementById("home-screen").style.display = "none";
+  }, 1500);
+  document.getElementById("instructions").innerHTML = instructions;
+}
+//this function closes instructions when proceed button clicked and start the main game
+function playGame() {
+  document.getElementById("instructions-area").style.animation =
+    "vanish-instructions 1.5s";
+  randomWordPicker();
+  givenLettersArray = mixing(gameButtonAlphabets(mainWord));
+  renderLettersArray = [...givenLettersArray];
+  renderStartingScreen();
+  renderLetters(renderLettersArray);
+  timerFunc();
+  setTimeout(() => {
+    document.getElementById("instructions-area").style.display = "none";
+  }, 1500);
+}
+
+// function resetGuessLetters() {
+//   for (let i = 0; i < mainWord.length; i++) {
+//     document.getElementById(`letterNo${i}`).remove();
+//   }
+//   for (let i = 0; i < 12; i++) {
+//     document.getElementById(`button-div${i}`).remove();
+//   }
+//   setTimeout(() => {
+//     document.getElementById("wrongAnswer").style.display = "none";
+//   }, 400);
+//   givenLettersArray = [];
+//   guessedWordArray = [];
+//   for (let i = 0; i < givenLettersArrayForReseting.length; i++) {
+//     givenLettersArray.push(givenLettersArrayForReseting[i]);
+//   }
+//   console.log("givenLettersArray: ", givenLettersArray);
+//   console.log("givenLettersArrayForReseting: ", givenLettersArrayForReseting);
+//   renderLettersArray = [...givenLettersArray];
+//   renderStartingScreen();
+//   setTimeout(renderLetters(renderLettersArray), 400);
+// }

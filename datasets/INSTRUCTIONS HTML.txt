@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./4pics1word.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="instructions">
+      <div class="instructions-overflow">
+        <div id="instructions-text">
+          4 Pics 1 Word is a word guessing game. It presents you with four
+          pictures and then tasks you with guessing what specific word fits with
+          the theme of the photos presented.<br />
+          Their a scoring system in it in which you can compete with your
+          friends.<br />
+          Their are three stages in the game (EASY, MEDIUM AND HARD).<br />
+          Level 1 -20 is the easy stage of the game.<br />
+          Level 21-40 is the medium stage of the game.<br />
+          And Level 21-50 is the hard stage of the game.<br /><br />
+          <span>HOW SCORING WORKS:-</span><br />
+          Their is a timer on top of the game starting from 0 seconds.<br />
+          &rarr; In easy stage if you guess the word in less than 30s you will
+          get 8 points and if you guess the word in less than 60s you will get 7
+          points. More than 60s will only reward you 5 points.<br />
+          &rarr; In medium stage if you guess the word in less than 30s you will
+          get 13 points and if you guess the word in less than 60s you will get
+          12 points. More than 60s will only reward you 10 points.<br />
+          &rarr; In hard stage if you guess the word in less than 30s you will
+          get 18 points and if you guess the word in less than 60s you will get
+          17 points. More than 60s will only reward you 15 points.<br />
+        </div>
+        <div id="instructions-text">
+          <span>HOW HINT WORKS:-</span><br />
+          Their are only 2 type of hints available for you in this game.And both
+          works in a different way.<br />
+          <div style="display: flex; margin-top: 10px">
+            <img
+              src="assets/hint_add_a_letter.png"
+              style="width: 60px; height: 60px"
+            />
+            <span>
+              This hint will tell you one letter of the guessing word. This hint
+              is available for you once in a level.</span
+            >
+          </div>
+          <div style="display: flex; margin-top: 10px">
+            <img
+              src="assets/hint_remove_letters.png"
+              style="width: 60px; height: 60px"
+            />
+            <span>
+              This hint will remove some of the given letters to make it easy
+              for you to guess. But you can reuse this hint after 3
+              levels.</span
+            >
+          </div>
+          <br /><br />
+          If you do like this game support us by sharing the link of this game
+          with your friends. And don't forget to compete with them.<br /><br /><br />
+          <div>
+            <span style="float: right; font-family: 'Franklin Gothic Medium'"
+              >MADE BY M.H.K & A.B.K</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 let mediumWords = [
   "advance",
-  "ancient",
+  // "ancient",
   // "athlete",
   // "balance",
   // "builder",

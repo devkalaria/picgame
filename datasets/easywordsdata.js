@@ -1,7 +1,7 @@
 let easyWords = [
   "ball",
-  "cloud",
-  "bow",
+  // "cloud",
+  // "bow",
   // "coach",
   // "cocktail",
   // "cowboy",
