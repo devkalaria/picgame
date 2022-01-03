@@ -48,7 +48,7 @@ function imgSourceGenerator() {
   for (let i = 1; i <= 4; i++) {
     document.getElementById(
       `guessingPicture${i}`
-    ).src = `./assets/${level} words images/${mainWord}/${mainWord}${i}.jpg`;
+    ).src = `./assets/${level} words images/${mainWord.toLowerCase()}/${mainWord.toLowerCase()}${i}.jpg`;
     console.log(level);
   }
 }
