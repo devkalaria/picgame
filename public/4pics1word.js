@@ -49,6 +49,7 @@ function imgSourceGenerator() {
     document.getElementById(
       `guessingPicture${i}`
     ).src = `./assets/${level} words images/${mainWord}/${mainWord}${i}.jpg`;
+    console.log(level);
   }
 }
 //Adding more random alphabets with main word included
