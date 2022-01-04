@@ -49,7 +49,6 @@ function imgSourceGenerator() {
     document.getElementById(
       `guessingPicture${i}`
     ).src = `./assets/${level} words images/${mainWord.toLowerCase()}/${mainWord.toLowerCase()}${i}.jpg`;
-    console.log(level);
   }
 }
 //Adding more random alphabets with main word included
@@ -233,9 +232,6 @@ function removeGuessLetter(indexOfGivenLetters, index) {
 }
 //when this hint is clicked it will unrender some letters from given letters
 function hintlettersVanishButtonClicked() {
-  if (counter === 0) {
-    counter = 4;
-  }
   if (counter === 4 && flagL === true) {
     if (soundEnabled === true) {
       document.getElementById("hintClicked").play();
@@ -330,8 +326,11 @@ function afterWinningLevel() {
   if (hintVanishflag === false) {
     counter--;
   }
-  if (counter === 0)
+  if (counter === 0) {
+    hintVanishflag = true;
+    counter = 4;
     document.getElementById("vanish-hint").style.filter = "brightness(100%)";
+  }
   totalTime = totalTime + timer;
   timerFunc();
   levelNo++;

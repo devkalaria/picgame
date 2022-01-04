@@ -382,6 +382,10 @@ body {
     margin-bottom: 120px;
     margin-right: 1px;
   }
+  .starting-screenimg {
+    width: 10rem;
+    height: 14rem;
+  }
   .play,
   .pause,
   .hint-button,
