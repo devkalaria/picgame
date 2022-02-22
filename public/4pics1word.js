@@ -304,9 +304,9 @@ function removeRenderingAfterLevelChanges() {
 }
 //effects afer wiining a level will occur because of this function
 function afterWinningLevel() {
-  if (soundEnabled === true) {
-    document.getElementById("winningAudio").play();
-  }
+  // if (soundEnabled === true) {
+  //   document.getElementById("winningAudio").play();
+  // }
   removeRenderingAfterLevelChanges();
   hintChar = true;
   flagL = true;
