@@ -5,10 +5,10 @@ const scores = db().collection("scores");
 
 const Score = (() => {
   async function update({ name, score, level }) {
-    scores.doc().set({
-      name: playerName,
+    await scores.doc().set({
+      name: name,
       score: score,
-      levelNo: levelNo,
+      levelNo: level,
     });
   }
 

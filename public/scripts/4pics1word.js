@@ -45,6 +45,9 @@ async function randomWordPicker() {
       "view-screenslider 0.8s ease 0s 1 normal forwards";
 
     await Score.update({ name: playerName, score: score, level: levelNo });
+    document
+      .querySelector("#playAgainButton")
+      .addEventListener("click", reloadPage);
   }
 }
 //NewimagesCreatorAfterLevelChanges
@@ -373,7 +376,6 @@ async function giveupBtnClicked() {
   if (soundEnabled === true) {
     document.getElementById("gameOverAudio").play();
   }
-  await Score.update({ name: playerName, score: score, level: levelNo });
   document.getElementById("displayName2").innerHTML = playerName;
   document.getElementById("displayScore2").innerHTML = score;
   document.getElementById("displayLevel").innerHTML = levelNo;
@@ -381,6 +383,8 @@ async function giveupBtnClicked() {
     fancyTimeFormat(totalTime);
   document.getElementById("gameOverDisplay").style.animation =
     "view-screenslider 1s ease 0s 1 normal forwards";
+  await Score.update({ name: playerName, score: score, level: levelNo });
+  document.querySelector("#playAgainBtn").addEventListener("click", reloadPage);
 }
 //when instruction button clicked this will render information on screen
 function instructionBtnClicked() {
