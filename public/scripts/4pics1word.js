@@ -15,9 +15,6 @@ let score = 0;
 let playerName = "";
 let totalTime = 0;
 
-const db = firebase.firestore;
-const scores = db().collection("scores");
-
 //mainWordpickerFromDataSets
 async function randomWordPicker() {
   let index;
@@ -47,11 +44,7 @@ async function randomWordPicker() {
     document.getElementById("afterWinningDisplay").style.animation =
       "view-screenslider 0.8s ease 0s 1 normal forwards";
 
-    await scores.doc().set({
-      name: playerName,
-      score: score,
-      levelNo: levelNo,
-    });
+    await Score.update({ name: playerName, score: score, level: levelNo });
   }
 }
 //NewimagesCreatorAfterLevelChanges
@@ -380,6 +373,7 @@ async function giveupBtnClicked() {
   if (soundEnabled === true) {
     document.getElementById("gameOverAudio").play();
   }
+  await Score.update({ name: playerName, score: score, level: levelNo });
   document.getElementById("displayName2").innerHTML = playerName;
   document.getElementById("displayScore2").innerHTML = score;
   document.getElementById("displayLevel").innerHTML = levelNo;
@@ -387,12 +381,6 @@ async function giveupBtnClicked() {
     fancyTimeFormat(totalTime);
   document.getElementById("gameOverDisplay").style.animation =
     "view-screenslider 1s ease 0s 1 normal forwards";
-
-  await scores.doc().set({
-    name: playerName,
-    score: score,
-    levelNo: levelNo,
-  });
 }
 //when instruction button clicked this will render information on screen
 function instructionBtnClicked() {
@@ -512,17 +500,7 @@ function playButtonClicked() {
     sound.play();
   }
 }
-async function creatingLeaderboardData() {
-  const topTenPlayers = [];
-  const querySnapshotPlayers = await scores
-    .orderBy("score", "desc")
-    .limit(10)
-    .get();
-  querySnapshotPlayers.forEach((doc) => {
-    topTenPlayers.push(doc.data());
-  });
-  return topTenPlayers;
-}
+
 //display the leaderboard
 async function leaderboardClicked() {
   if (soundEnabled === true) {
@@ -530,7 +508,7 @@ async function leaderboardClicked() {
   }
   const elem = document.querySelector(".leaderboard-button");
   startLoading(elem);
-  const topTenPlayers = await creatingLeaderboardData();
+  const topTenPlayers = await Score.get();
   console.log(topTenPlayers);
   for (let i = 0; i < topTenPlayers.length; i++) {
     document.getElementById(`pos${i}name`).innerHTML = topTenPlayers[i].name;
