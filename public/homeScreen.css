@@ -9,6 +9,9 @@
   display: flex;
   flex-direction: column;
 }
+#leaderboard {
+  z-index: 99999;
+}
 @keyframes vanish-homescreen {
   0% {
     transform: translateY(0%);
@@ -18,6 +21,20 @@
     transform: translateY(-200%);
     opacity: 0.1;
   }
+}
+.input-name {
+  margin-top: 10px;
+  margin: auto;
+  padding: 5px;
+  outline: none;
+  background-color: #730e9a;
+  border: 2px solid #ff3b3b;
+  color: white;
+  font-size: 19px;
+  text-align: center;
+  border-radius: 5px;
+  height: 45px;
+  width: 200px;
 }
 .starting-screenimg {
   margin: auto;
@@ -67,6 +84,50 @@
   transform: rotateX(90deg) translateZ(25px);
 }
 .starting-playbutton span:hover {
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+.leaderboard-button {
+  position: relative;
+  display: inline-flex;
+  width: 180px;
+  height: 55px;
+  perspective: 1000px;
+  margin: auto;
+}
+.leaderboard-button:hover {
+  cursor: pointer;
+}
+.leaderboard-button span {
+  font-size: 19px;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform 0.25s;
+  font-family: "Montserrat", sans-serif;
+}
+.leaderboard-button span:before,
+.leaderboard-button span:after {
+  position: absolute;
+  content: "LEADERBOARD";
+  height: 55px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ff3b3b;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+.leaderboard-button span:before {
+  color: #fff;
+  background: #730e9a;
+  transform: rotateY(0deg) translateZ(25px);
+}
+.leaderboard-button span:after {
+  color: #ffffff;
+  transform: rotateX(90deg) translateZ(25px);
+}
+.leaderboard-button span:hover {
   transform: translateZ(-25px) rotateX(-90deg);
 }
 #instructions-area {
@@ -185,4 +246,14 @@
 
 .proceed-btn:hover:before {
   left: 100%;
+}
+
+/* loader */
+@keyframes loader_spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

@@ -12,10 +12,14 @@ let hintChar = true;
 let soundEnabled = true;
 let timer = 0;
 let score = 0;
+let playerName = "";
 let totalTime = 0;
 
+const db = firebase.firestore;
+const scores = db().collection("scores");
+
 //mainWordpickerFromDataSets
-function randomWordPicker() {
+async function randomWordPicker() {
   let index;
   if (easyWords.length !== 0) {
     index = Math.floor(Math.random() * (easyWords.length - 1 - 0 + 1) + 0);
@@ -36,11 +40,18 @@ function randomWordPicker() {
     if (soundEnabled === true) {
       document.getElementById("gameWinAudio").play();
     }
+    document.getElementById("displayName").innerHTML = playerName;
     document.getElementById("displayScore").innerHTML = score;
     document.getElementById("displayTime").innerHTML =
       fancyTimeFormat(totalTime);
     document.getElementById("afterWinningDisplay").style.animation =
-      "view-instructions-on-btn 0.8s ease 0s 1 normal forwards";
+      "view-screenslider 0.8s ease 0s 1 normal forwards";
+
+    await scores.doc().set({
+      name: playerName,
+      score: score,
+      levelNo: levelNo,
+    });
   }
 }
 //NewimagesCreatorAfterLevelChanges
@@ -304,9 +315,9 @@ function removeRenderingAfterLevelChanges() {
 }
 //effects afer wiining a level will occur because of this function
 function afterWinningLevel() {
-  // if (soundEnabled === true) {
-  //   document.getElementById("winningAudio").play();
-  // }
+  if (soundEnabled === true) {
+    document.getElementById("winningAudio").play();
+  }
   removeRenderingAfterLevelChanges();
   hintChar = true;
   flagL = true;
@@ -364,13 +375,32 @@ function toggleSound(el) {
 
   return false;
 }
+//when giveup button is clicked the game will be over
+async function giveupBtnClicked() {
+  if (soundEnabled === true) {
+    document.getElementById("gameOverAudio").play();
+  }
+  document.getElementById("displayName2").innerHTML = playerName;
+  document.getElementById("displayScore2").innerHTML = score;
+  document.getElementById("displayLevel").innerHTML = levelNo;
+  document.getElementById("displayTime2").innerHTML =
+    fancyTimeFormat(totalTime);
+  document.getElementById("gameOverDisplay").style.animation =
+    "view-screenslider 1s ease 0s 1 normal forwards";
+
+  await scores.doc().set({
+    name: playerName,
+    score: score,
+    levelNo: levelNo,
+  });
+}
 //when instruction button clicked this will render information on screen
 function instructionBtnClicked() {
   if (soundEnabled === true) {
     playSound();
   }
   document.getElementById("instructions-area-on-btn").style.animation =
-    "view-instructions-on-btn 1s ease 0s 1 normal forwards";
+    "view-screenslider 1s ease 0s 1 normal forwards";
   document.getElementById("instructionsByBtn").innerHTML = instructions;
 }
 //exit button will close instructions
@@ -379,7 +409,7 @@ function exitInstructions() {
     playSound();
   }
   document.getElementById("instructions-area-on-btn").style.animation =
-    "vanish-instructions-on-btn 1.3s ease 0s 1 normal forwards";
+    "close-screenslider 1.3s ease 0s 1 normal forwards";
 }
 //this function will calculate score after every level changes according to time
 function scoreGenerator() {
@@ -447,6 +477,10 @@ function timerFunc() {
     }
   }, 1000);
 }
+//reload the game
+function reloadPage() {
+  location.reload();
+}
 function playSound() {
   let sound = document.getElementById("selectOption");
   sound.load();
@@ -462,15 +496,65 @@ function openFullscreen() {
 }
 //this function will remove the first screen and reveal instructions
 function playButtonClicked() {
-  document.getElementById("home-screen").style.animation =
-    "vanish-homescreen 1.5s";
-  setTimeout(() => {
-    document.getElementById("home-screen").style.display = "none";
-  }, 1500);
-  document.getElementById("instructions").innerHTML = instructions;
+  playerName = document.getElementsByClassName("input-name")[0].value;
+  if (playerName.length >= 3) {
+    if (soundEnabled === true) {
+      playSound();
+    }
+    document.getElementById("home-screen").style.animation =
+      "vanish-homescreen 1.5s";
+    setTimeout(() => {
+      document.getElementById("home-screen").style.display = "none";
+    }, 1500);
+    document.getElementById("instructions").innerHTML = instructions;
+  } else {
+    let sound = document.getElementById("wrongNamePrompt");
+    sound.play();
+  }
+}
+async function creatingLeaderboardData() {
+  const topTenPlayers = [];
+  const querySnapshotPlayers = await scores
+    .orderBy("score", "desc")
+    .limit(10)
+    .get();
+  querySnapshotPlayers.forEach((doc) => {
+    topTenPlayers.push(doc.data());
+  });
+  return topTenPlayers;
+}
+//display the leaderboard
+async function leaderboardClicked() {
+  if (soundEnabled === true) {
+    playSound();
+  }
+  const elem = document.querySelector(".leaderboard-button");
+  startLoading(elem);
+  const topTenPlayers = await creatingLeaderboardData();
+  console.log(topTenPlayers);
+  for (let i = 0; i < topTenPlayers.length; i++) {
+    document.getElementById(`pos${i}name`).innerHTML = topTenPlayers[i].name;
+    document.getElementById(`pos${i}score`).innerHTML = topTenPlayers[i].score;
+    document.getElementById(`pos${i}level`).innerHTML =
+      topTenPlayers[i].levelNo;
+  }
+  stopLoading(elem);
+  document.getElementById("leaderboard").style.animation =
+    "view-screenslider 1s ease 0s 1 normal forwards";
+}
+//exit button will close leaderboard
+function exitLeaderboard() {
+  if (soundEnabled === true) {
+    playSound();
+  }
+  document.getElementById("leaderboard").style.animation =
+    "close-screenslider 1.3s ease 0s 1 normal forwards";
 }
 //this function closes instructions when proceed button clicked and start the main game
 function playGame() {
+  if (soundEnabled === true) {
+    playSound();
+  }
   document.getElementById("instructions-area").style.animation =
     "vanish-instructions 1.5s";
   randomWordPicker();
@@ -483,25 +567,3 @@ function playGame() {
     document.getElementById("instructions-area").style.display = "none";
   }, 1500);
 }
-
-// function resetGuessLetters() {
-//   for (let i = 0; i < mainWord.length; i++) {
-//     document.getElementById(`letterNo${i}`).remove();
-//   }
-//   for (let i = 0; i < 12; i++) {
-//     document.getElementById(`button-div${i}`).remove();
-//   }
-//   setTimeout(() => {
-//     document.getElementById("wrongAnswer").style.display = "none";
-//   }, 400);
-//   givenLettersArray = [];
-//   guessedWordArray = [];
-//   for (let i = 0; i < givenLettersArrayForReseting.length; i++) {
-//     givenLettersArray.push(givenLettersArrayForReseting[i]);
-//   }
-//   console.log("givenLettersArray: ", givenLettersArray);
-//   console.log("givenLettersArrayForReseting: ", givenLettersArrayForReseting);
-//   renderLettersArray = [...givenLettersArray];
-//   renderStartingScreen();
-//   setTimeout(renderLetters(renderLettersArray), 400);
-// }

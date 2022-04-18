@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./homeScreen.css" />
     <link rel="stylesheet" href="./4pics1word.css" />
-    <link rel="icon" href="./assets/favicon.png" cl/>
+    <link rel="icon" href="./assets/favicon.png" cl />
     <title>4-PIC-1-WORD</title>
   </head>
   <body>
@@ -20,13 +20,12 @@
       src="./assets/audios/Aww-sound-effect.mp3"
       autoplay="false"
     ></audio>
-    <audio'
+    <audio
       id="winningAudio"
       src="./assets/audios/level-completed.mp3"
       autoplay="false"
     ></audio>
     <audio
-    
       id="wrongAnswerAudio"
       src="./assets/audios/Wrong Clakson Sound Effect.mp3"
       autoplay="false"
@@ -36,14 +35,119 @@
       src="./assets/audios/mixkit-end-of-show-clapping-crowd-477.wav"
       autoplay="false"
     ></audio>
+    <audio
+      id="gameOverAudio"
+      src="./assets/audios/gameOver.wav"
+      autoplay="false"
+    ></audio>
+    <audio
+      id="wrongNamePrompt"
+      src="./assets/audios/name prompt.mp3"
+      autoplay="false"
+    ></audio>
+
     <div class="game-container">
       <div id="home-screen">
         <button onclick="openFullscreen();" class="full-screen-Button">
           Open Game in Fullscreen Mode
         </button>
+        <input
+          type="text"
+          class="input-name"
+          placeholder="Enter Your Name"
+          maxlength="17"
+        />
         <img src="./assets/logo4.PNG" class="starting-screenimg" />
         <div class="starting-playbutton" onclick="playButtonClicked()">
           <span></span>
+        </div>
+        <div class="leaderboard-button" onclick="leaderboardClicked()">
+          <span></span>
+        </div>
+      </div>
+      <div id="leaderboard" class="screen-slider">
+        <div class="instructionsHeading">
+          LEADERBOARD<img
+            src="./assets/but_exit.png"
+            class="exit-button"
+            onclick="exitLeaderboard()"
+          />
+        </div>
+        <div>
+          <table>
+            <colgroup>
+              <col span="1" style="background-color: #ff8ff9" />
+              <col span="1" style="background-color: #cf6aca" />
+              <col span="1" style="background-color: #bb51b6" />
+              <col span="1" style="background-color: #7a2576" />
+            </colgroup>
+            <tr>
+              <th>RANK</th>
+              <th>NAME</th>
+              <th>SCORE</th>
+              <th>LEVEL</th>
+            </tr>
+            <tr>
+              <td>1st</td>
+              <td id="pos0name">M. Hamza Khan</td>
+              <td id="pos0score">500</td>
+              <td id="pos0level">32</td>
+            </tr>
+            <tr>
+              <td>2nd</td>
+              <td id="pos1name"></td>
+              <td id="pos1score"></td>
+              <td id="pos1level"></td>
+            </tr>
+            <tr>
+              <td>3rd</td>
+              <td id="pos2name"></td>
+              <td id="pos2score"></td>
+              <td id="pos2level"></td>
+            </tr>
+            <tr>
+              <td>4th</td>
+              <td id="pos3name"></td>
+              <td id="pos3score"></td>
+              <td id="pos3level"></td>
+            </tr>
+            <tr>
+              <td>5th</td>
+              <td id="pos4name"></td>
+              <td id="pos4score"></td>
+              <td id="pos4level"></td>
+            </tr>
+            <tr>
+              <td>6th</td>
+              <td id="pos5name"></td>
+              <td id="pos5score"></td>
+              <td id="pos5level"></td>
+            </tr>
+            <tr>
+              <td>7th</td>
+              <td id="pos6name"></td>
+              <td id="pos6score"></td>
+              <td id="pos6level"></td>
+            </tr>
+            <tr>
+              <td>8th</td>
+              <td id="pos7name"></td>
+              <td id="pos7score"></td>
+              <td id="pos7level"></td>
+            </tr>
+            <tr>
+              <td>9th</td>
+              <td id="pos8name"></td>
+              <td id="pos8score"></td>
+              <td id="pos8level"></td>
+            </tr>
+            <tr>
+              <td>10th</td>
+              <td id="pos9name"></td>
+              <td id="pos9score"></td>
+              <td id="pos9level"></td>
+            </tr>
+          </table>
         </div>
       </div>
       <div id="instructions-area">
@@ -59,6 +163,14 @@
         <div class="left-game-container">
           <img src="./assets/logo4.PNG" class="logoIcon" />
           <div class="left-container-buttons-container">
+            <div>
+              <input
+                type="image"
+                src="./assets/giveup_button.png"
+                class="giveup-button"
+                onclick="giveupBtnClicked()"
+              />
+            </div>
             <div>
               <input
                 type="image"
@@ -174,11 +286,11 @@
         </div>
       </div>
       <!-- INSTUCTION BOX After CLICKING BUTTON -->
-      <div id="instructions-area-on-btn" class="instructions-area-on-btn">
+      <div id="instructions-area-on-btn" class="screen-slider">
         <div class="instructionsHeading">
           INSTRUCTIONS<img
             src="./assets/but_exit.png"
-            class="exit-instructions-btn"
+            class="exit-button"
             onclick="exitInstructions()"
           />
         </div>
@@ -188,7 +300,7 @@
       </div>
       <!-- ----------------------------------------->
       <!-- AFTER WINNING BOX -->
-      <div id="afterWinningDisplay" class="instructions-area-on-btn">
+      <div id="afterWinningDisplay" class="screen-slider">
         <div class="afterCompletingGame">
           <div>
             <img
@@ -197,27 +309,89 @@
                 margin-left: auto;
                 margin-right: auto;
                 display: block;
-                margin-top: 5rem;
+                margin-top: 3rem;
               "
             />
           </div>
           <div class="after-winning-area">
             <p>
-              You've completed all the levels of this game and your total score
-              is <span id="displayScore"></span> out of 600 in the total time of
+              <span id="displayName"></span> you've completed all the levels of
+              this game and your total score is
+              <span id="displayScore"></span> out of 600 in the total time of
               <span id="displayTime"></span><br />
               <br /><br />Send the link of this game and screenshot of this page
               to your friends to compete with them.
             </p>
           </div>
+          <div>
+            <input
+              type="image"
+              src="./assets/playAgain.png"
+              onclick="reloadPage()"
+              style="
+                margin-left: auto;
+                margin-right: auto;
+                width: 160px;
+                height: auto;
+                display: block;
+                margin-top: 2rem;
+              "
+            />
+          </div>
         </div>
       </div>
       <!-- ----------------- -->
+      <!--------- GAME OVER BOX -------->
+      <div id="gameOverDisplay" class="screen-slider">
+        <div class="afterCompletingGame">
+          <div>
+            <img
+              src="assets/gameover.gif"
+              style="
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+                margin-top: 3rem;
+              "
+            />
+          </div>
+          <div class="after-winning-area">
+            <p>
+              Hey <span id="displayName2"></span>! you only reach to LEVEL
+              <span id="displayLevel"></span> and your total score is
+              <span id="displayScore2"></span> out of 600 in the total time of
+              <span id="displayTime2"></span><br />
+              <br /><br />Send the link of this game and screenshot of this page
+              to your friends to compete with them.
+            </p>
+          </div>
+          <div>
+            <input
+              type="image"
+              src="./assets/playAgain.png"
+              onclick="reloadPage()"
+              style="
+                margin-left: auto;
+                margin-right: auto;
+                width: 160px;
+                height: auto;
+                display: block;
+                margin-top: 2rem;
+              "
+            />
+          </div>
+        </div>
+      </div>
+      <!-- ------------------------------>
     </div>
   </body>
-  <script src="./datasets/easywordsdata.js"></script>
-  <script src="./datasets/mediumwordsdata.js"></script>
-  <script src="./datasets/hardwordsdata.js"></script>
-  <script src="./datasets/instructions.js"></script>
-  <script src="./4pics1word.js"></script>
+  <script src="./scripts/utils/loader.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="./scripts/firebaseSetup.js"></script>
+  <script src="./scripts/datasets/easywordsdata.js"></script>
+  <script src="./scripts/datasets/mediumwordsdata.js"></script>
+  <script src="./scripts/datasets/hardwordsdata.js"></script>
+  <script src="./scripts/instructions.js"></script>
+  <script src="./scripts/4pics1word.js"></script>
 </html>

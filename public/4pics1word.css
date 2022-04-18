@@ -9,6 +9,29 @@ body {
   background-size: cover;
   /* background-repeat: no-repeat; */
 }
+table {
+  margin-top: 50px;
+  font-family: arial, sans-serif;
+  /* border-collapse: collapse; */
+  width: 90%;
+  border-bottom-color: #160c5c;
+  border-color: #571e81;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+td,
+th {
+  font-weight: 700;
+  border: 3px solid #a056d1;
+  text-align: center;
+  padding: 8px;
+  height: 15;
+}
+th {
+  background-color: #571e81;
+  font-weight: 800;
+}
 .full-screen-Button {
   display: block;
   height: 50px;
@@ -29,9 +52,9 @@ body {
 }
 .logoIcon {
   width: 150px;
-  height: 300px;
+  height: 260px;
   border-radius: 10px;
-  margin-bottom: 35px;
+  margin-bottom: 5px;
   margin-right: 3px;
   border: 5px solid #430477;
   animation: border-flicker 2s linear infinite;
@@ -67,6 +90,16 @@ body {
   display: flex;
   flex-direction: column;
   margin-top: auto;
+}
+.giveup-button {
+  float: right;
+  width: 150px;
+  height: 75px;
+  background: linear-gradient(#851cff, #bc65ff);
+  border: 2px solid #a29096;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin-right: 3px;
 }
 .instruction-button {
   float: right;
@@ -302,7 +335,7 @@ body {
 
 /* ----------------------------- */
 
-.instructions-area-on-btn {
+.screen-slider {
   position: absolute;
   top: 0px;
   width: 42rem;
@@ -335,16 +368,16 @@ body {
   display: flex;
   overflow: hidden;
 }
-.exit-instructions-btn {
+.exit-button {
   width: 55px;
   height: 55px;
   float: right;
   margin: 5px 5px 0px 0px;
 }
-.exit-instructions-btn:hover {
+.exit-button:hover {
   cursor: pointer;
 }
-@keyframes view-instructions-on-btn {
+@keyframes view-screenslider {
   0% {
     transform: translate(-50%, -250%);
     opacity: 0.1;
@@ -354,7 +387,7 @@ body {
     opacity: 1;
   }
 }
-@keyframes vanish-instructions-on-btn {
+@keyframes close-screenslider {
   0% {
     transform: translate(-50%, -50%);
     opacity: 1;
@@ -389,7 +422,7 @@ body {
   .play,
   .pause,
   .hint-button,
-  .exit-instructions-btn {
+  .exit-button {
     width: 40px;
     height: 40px;
   }
@@ -402,7 +435,7 @@ body {
   }
   #instructions-area,
   #home-screen,
-  .instructions-area-on-btn {
+  .screen-slider {
     width: 22rem;
   }
   .mobile-view-div {
