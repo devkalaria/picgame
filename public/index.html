@@ -73,82 +73,10 @@
             onclick="exitLeaderboard()"
           />
         </div>
-        <div>
-          <table>
-            <colgroup>
-              <col span="1" style="background-color: #ff8ff9" />
-              <col span="1" style="background-color: #cf6aca" />
-              <col span="1" style="background-color: #bb51b6" />
-              <col span="1" style="background-color: #7a2576" />
-            </colgroup>
-            <tr>
-              <th>RANK</th>
-              <th>NAME</th>
-              <th>SCORE</th>
-              <th>LEVEL</th>
-            </tr>
-            <tr>
-              <td>1st</td>
-              <td id="pos0name">M. Hamza Khan</td>
-              <td id="pos0score">500</td>
-              <td id="pos0level">32</td>
-            </tr>
-            <tr>
-              <td>2nd</td>
-              <td id="pos1name"></td>
-              <td id="pos1score"></td>
-              <td id="pos1level"></td>
-            </tr>
-            <tr>
-              <td>3rd</td>
-              <td id="pos2name"></td>
-              <td id="pos2score"></td>
-              <td id="pos2level"></td>
-            </tr>
-            <tr>
-              <td>4th</td>
-              <td id="pos3name"></td>
-              <td id="pos3score"></td>
-              <td id="pos3level"></td>
-            </tr>
-            <tr>
-              <td>5th</td>
-              <td id="pos4name"></td>
-              <td id="pos4score"></td>
-              <td id="pos4level"></td>
-            </tr>
-            <tr>
-              <td>6th</td>
-              <td id="pos5name"></td>
-              <td id="pos5score"></td>
-              <td id="pos5level"></td>
-            </tr>
-            <tr>
-              <td>7th</td>
-              <td id="pos6name"></td>
-              <td id="pos6score"></td>
-              <td id="pos6level"></td>
-            </tr>
-            <tr>
-              <td>8th</td>
-              <td id="pos7name"></td>
-              <td id="pos7score"></td>
-              <td id="pos7level"></td>
-            </tr>
-            <tr>
-              <td>9th</td>
-              <td id="pos8name"></td>
-              <td id="pos8score"></td>
-              <td id="pos8level"></td>
-            </tr>
-            <tr>
-              <td>10th</td>
-              <td id="pos9name"></td>
-              <td id="pos9score"></td>
-              <td id="pos9level"></td>
-            </tr>
-          </table>
+        <div class="leaderboardBox box-overflow">
+          <ul id="leaderboardList"></ul>
         </div>
+        <img src="./assets/down-arrow.png" id="leaderboard-scrollLoading" />
       </div>
       <div id="instructions-area">
         <div class="instructionsHeading">INSTRUCTIONS</div>
@@ -340,6 +268,7 @@
           </div>
         </div>
       </div>
+      <div></div>
       <!-- ----------------- -->
       <!--------- GAME OVER BOX -------->
       <div id="gameOverDisplay" class="screen-slider">
@@ -386,6 +315,7 @@
     </div>
   </body>
   <script src="./scripts/utils/loader.js"></script>
+  <script src="./scripts/utils/index.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
   <script src="./scripts/firebaseSetup.js"></script>

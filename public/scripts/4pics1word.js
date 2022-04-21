@@ -512,18 +512,66 @@ async function leaderboardClicked() {
   }
   const elem = document.querySelector(".leaderboard-button");
   startLoading(elem);
-  const topTenPlayers = await Score.get();
-  console.log(topTenPlayers);
-  for (let i = 0; i < topTenPlayers.length; i++) {
-    document.getElementById(`pos${i}name`).innerHTML = topTenPlayers[i].name;
-    document.getElementById(`pos${i}score`).innerHTML = topTenPlayers[i].score;
-    document.getElementById(`pos${i}level`).innerHTML =
-      topTenPlayers[i].levelNo;
-  }
+  await prepareLeaderboard();
   stopLoading(elem);
   document.getElementById("leaderboard").style.animation =
     "view-screenslider 1s ease 0s 1 normal forwards";
+  document
+    .querySelector(".leaderboardBox")
+    .addEventListener("scroll", scrollLeaderboard);
+
+  const downArrow = document.querySelector("#leaderboard-scrollLoading");
+  downArrow.addEventListener("click", () => {
+    document.querySelector(".leaderboardBox").scrollTop = 100000;
+  });
 }
+
+const scoreList = Score.create_get();
+
+//prepare leaderboard
+async function prepareLeaderboard() {
+  const topTenPlayers = await scoreList({ limit: 15 });
+  const list = document.querySelector("#leaderboardList");
+  list.innerHTML = `
+    <li>
+      <div>RANK</div>
+      <div>NAME</div>
+      <div>SCORE</div>
+      <div>LEVEL</div>
+    </li>
+  `;
+  function appendDivsToLi(rowNo, li) {
+    const div1 = document.createElement("div");
+    div1.innerHTML = rowNo + 1;
+    li.appendChild(div1);
+    const div2 = document.createElement("div");
+    div2.innerHTML = topTenPlayers[rowNo].name;
+    li.appendChild(div2);
+    const div3 = document.createElement("div");
+    div3.innerHTML = topTenPlayers[rowNo].score;
+    li.appendChild(div3);
+    const div4 = document.createElement("div");
+    div4.innerHTML = topTenPlayers[rowNo].levelNo;
+    li.appendChild(div4);
+  }
+  for (let i = 0; i < topTenPlayers.length; i++) {
+    const li = document.createElement("li");
+    appendDivsToLi(i, li);
+    list.appendChild(li);
+  }
+}
+const fetchNext = throttledFunction(prepareLeaderboard, 800);
+
+function scrollLeaderboard() {
+  const scrollingBox = document.querySelector(".leaderboardBox");
+  const clientHeight = scrollingBox.clientHeight;
+  const currentScroll = scrollingBox.scrollTop;
+  const maxScroll = scrollingBox.scrollHeight - clientHeight;
+  const currentPercent = (currentScroll / maxScroll) * 100;
+
+  if (currentPercent > 70) fetchNext();
+}
+
 //exit button will close leaderboard
 function exitLeaderboard() {
   if (soundEnabled === true) {

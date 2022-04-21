@@ -12,21 +12,34 @@ const Score = (() => {
     });
   }
 
-  async function get() {
-    const topTenPlayers = [];
-    const querySnapshotPlayers = await scores
-      .orderBy("score", "desc")
-      .limit(10)
-      .get();
-    querySnapshotPlayers.forEach((doc) => {
-      topTenPlayers.push(doc.data());
-    });
-    return topTenPlayers;
+  function create_get() {
+    let startAfter;
+    let leaderboardListNomore = false;
+    let topTenPlayers = [];
+
+    return async function ({ limit }) {
+      const downArrow = document.querySelector("#leaderboard-scrollLoading");
+      let query = scores.orderBy("score", "desc");
+      if (startAfter) query = query.startAfter(startAfter);
+      if (leaderboardListNomore === true) return topTenPlayers;
+      startLoading(downArrow);
+      const querySnapshotPlayers = await query.limit(limit).get();
+      if (querySnapshotPlayers.docs.length < limit)
+        leaderboardListNomore = true;
+      querySnapshotPlayers.forEach((doc) => {
+        const res = doc.data();
+        res.id = doc.id;
+        topTenPlayers.push(res);
+      });
+      startAfter = topTenPlayers[topTenPlayers.length - 1].score;
+      stopLoading(downArrow);
+      return topTenPlayers;
+    };
   }
 
   const Obj = {
     update,
-    get,
+    create_get,
   };
 
   return Obj;

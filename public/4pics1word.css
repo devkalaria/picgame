@@ -9,28 +9,83 @@ body {
   background-size: cover;
   /* background-repeat: no-repeat; */
 }
-table {
-  margin-top: 50px;
-  font-family: arial, sans-serif;
-  /* border-collapse: collapse; */
-  width: 90%;
-  border-bottom-color: #160c5c;
-  border-color: #571e81;
+.leaderboardBox{
+  width: 80%;
+  height: 75%;
+  border: 2px black solid;
+  margin: auto;
+  margin-top: 2rem;
   text-align: center;
+  overflow-y: scroll;
+}
+.leaderboardBox > ul {
+  list-style: none;
+}
+.leaderboardBox > ul > li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #851cff;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  
+}
+.leaderboardBox > ul > li > div {
+  /* width: 10rem; */
+  height: 2.5rem;
+  line-height: 2.5rem;
+  border: 2px solid rgb(57, 12, 83);
+}
+.leaderboardBox > ul > li > div:nth-child(1){
+  /* background-color: #c7a950; */
+  width: 15%;
+}
+.leaderboardBox > ul > li > div:nth-child(2){
+  /* background-color: #c7a950; */
+  width: 45%;
+}
+.leaderboardBox > ul > li > div:nth-child(3){
+  /* background-color: #c7a950; */
+  width: 20%;
+}
+.leaderboardBox > ul > li > div:nth-child(4){
+  /* background-color: #c7a950; */
+  width: 20%;
+}
+.leaderboardBox > ul > li:nth-child(1){
+    position: sticky;
+    top:0;
+
+  font-family: Helvetica, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a021f;
+  background-color: #6d0f92;
+}
+.leaderboardBox > ul > li:nth-child(2){
+  color: black;
+  background-color: #FFD700;
+}
+.leaderboardBox > ul > li:nth-child(3){
+  color: #000;
+  background-color: #C0C0C0;
+}
+.leaderboardBox > ul > li:nth-child(4){
+  color: #000;
+  background-color: #CD7F32;
+}
+#leaderboard-scrollLoading{
+  background-color: #2a009b;
+  border: 3px #390c53 solid;
+  border-radius: 0.4rem;
+  width: 3rem;
+  height: 2.6rem;
+  display: block;
   margin-left: auto;
   margin-right: auto;
-}
-td,
-th {
-  font-weight: 700;
-  border: 3px solid #a056d1;
-  text-align: center;
-  padding: 8px;
-  height: 15;
-}
-th {
-  background-color: #571e81;
-  font-weight: 800;
+  margin-top: 0.5rem;
 }
 .full-screen-Button {
   display: block;

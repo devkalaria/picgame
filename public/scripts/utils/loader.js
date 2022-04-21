@@ -7,7 +7,6 @@ const randHashString = (len) => {
 };
 
 function getLoaderElement(loaderId, dim, maxSize = Infinity) {
-  console.log("dim: ", dim);
   const loader = document.createElement("div");
   loader.style = `
         width: ${dim.width}px;
