@@ -1,12 +1,7 @@
 let hardWords = [
-  "ancestor",
-  "beverage",
-  "ceremony",
-  "collapse",
-  "decorate",
-  "emotions",
-  "friction",
-  "interior",
-  "junction",
-  "platform",
+  "amendment",
+  "devolution",
+  "federalism",
+  "secularism",
+  "sovereignty",
 ];
